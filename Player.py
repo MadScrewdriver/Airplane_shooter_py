@@ -6,14 +6,17 @@ class Rocket(object):
 
     def __init__(self, game):
         self.game = game
-        self.speed = 10
+        self.speed = 5
         self.size = self.game.screen.get_size()
         self.pos = Vector2(self.size[0] / 2, self.size[1] * (5/6))
         self.vel = Vector2(self.speed, 0)
         self.touch_r = False
         self.touch_l = False
-        self.margin = 20
-        self.points = [Vector2(0, -15), Vector2(15, 15), Vector2(-15, 15)]
+        self.margin = self.size[0] / 20
+        self.player_size = self.size[0] / (self.size[0] / 15)
+        self.points = [Vector2(0, -self.player_size),
+                       Vector2(self.player_size, self.player_size),
+                       Vector2(-self.player_size, self.player_size)]
 
     def tick(self):
         # Input
@@ -41,5 +44,4 @@ class Rocket(object):
             self.touch_r = False
             self.touch_l = False
 
-        print(self.pos)
         pygame.draw.polygon(self.game.screen, (0, 255, 0), points)

@@ -2,13 +2,13 @@ import pygame
 import sys
 from Player import Rocket
 from Bullet import Bullets
-
+from Enemy import Enemy
 
 class Game(object):
 
     def __init__(self):
         # Config
-        self.max_fps = 50
+        self.max_fps = 120
         self.screen = pygame.display.set_mode((1280, 720))
         self.clock = pygame.time.Clock()
         self.delta = 0.0
@@ -17,6 +17,7 @@ class Game(object):
         pygame.init()
         self.player = Rocket(self)
         self.bullet = Bullets(self, self.player)
+        self.enemy = Enemy(self, self.player, self.bullet)
 
         while True:
             self.screen.fill((0, 0, 0))
@@ -46,6 +47,7 @@ class Game(object):
     def draw(self):
         self.player.draw()
         self.bullet.draw()
+        self.enemy.draw()
 
 
 if __name__ == '__main__':
