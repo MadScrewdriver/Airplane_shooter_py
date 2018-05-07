@@ -4,6 +4,8 @@ from Player import Rocket
 from Bullet import Bullets
 from Enemy import Enemy
 from pygame.locals import *
+from win32api import GetSystemMetrics
+from Get_work_Area import get_work_area
 
 
 class Game(object):
@@ -13,6 +15,7 @@ class Game(object):
         # Config
         self.max_fps = 120
         self.screen = pygame.display.set_mode((1280, 720), HWSURFACE | DOUBLEBUF | RESIZABLE)
+        self.s_info = pygame.display.Info()
         self.clock = pygame.time.Clock()
         self.delta = 0.0
 
@@ -34,6 +37,11 @@ class Game(object):
 
                 if event.type == VIDEORESIZE:
                     self.screen = pygame.display.set_mode(event.dict['size'], HWSURFACE | DOUBLEBUF | RESIZABLE)
+                    self.s_info = pygame.display.Info()
+
+                    if self.s_info.current_w not in (1280, GetSystemMetrics(0)) or \
+                            self.s_info.current_h not in (720, get_work_area()):
+                        self.screen = pygame.display.set_mode((1280, 720), HWSURFACE | DOUBLEBUF | RESIZABLE)
 
             # Ticking
             self.delta += self.clock.tick() / 1000.0
