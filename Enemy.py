@@ -15,7 +15,13 @@ class Enemy(object):
         self.bullets = bullets
         self.num_of_e = 0
 
+    def update(self):
+        self.size = self.game.screen.get_size()
+        self.enemies_r = self.size[0] / 50
+
     def draw(self):
+        self.update()
+
         if self.num_of_e == 0:
             self.enemies.append(Vector2(randint(int(self.size[0] / 20),
                                                 int(self.size[0] - self.size[0] / 20)

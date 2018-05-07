@@ -3,18 +3,20 @@ import sys
 from Player import Rocket
 from Bullet import Bullets
 from Enemy import Enemy
+from pygame.locals import *
+
 
 class Game(object):
 
     def __init__(self):
+        pygame.init()
         # Config
         self.max_fps = 120
-        self.screen = pygame.display.set_mode((1280, 720))
+        self.screen = pygame.display.set_mode((1280, 720), HWSURFACE | DOUBLEBUF | RESIZABLE)
         self.clock = pygame.time.Clock()
         self.delta = 0.0
 
         # Initialization
-        pygame.init()
         self.player = Rocket(self)
         self.bullet = Bullets(self, self.player)
         self.enemy = Enemy(self, self.player, self.bullet)
@@ -29,6 +31,9 @@ class Game(object):
 
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
                     self.bullet.shoot()
+
+                if event.type == VIDEORESIZE:
+                    self.screen = pygame.display.set_mode(event.dict['size'], HWSURFACE | DOUBLEBUF | RESIZABLE)
 
             # Ticking
             self.delta += self.clock.tick() / 1000.0
