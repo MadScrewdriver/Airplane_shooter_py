@@ -14,10 +14,9 @@ class Game(object):
         pygame.init()
         # Config
         self.max_fps = 120
-        self.screen_with = 480
-        self.screen_lenght = 720
-        self.screen = pygame.display.set_mode((self.screen_with, self.screen_lenght), HWSURFACE | DOUBLEBUF | RESIZABLE)
-        self.s_info = pygame.display.Info()
+        self.screen_with = int(GetSystemMetrics(0) * 0.28)
+        self.screen_lenght = int(GetSystemMetrics(1) * 0.7)
+        self.screen = pygame.display.set_mode((self.screen_with, self.screen_lenght))
         self.clock = pygame.time.Clock()
         self.delta = 0.0
 
@@ -37,23 +36,6 @@ class Game(object):
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
                     self.bullet.shoot()
 
-                if event.type == VIDEORESIZE:
-                    self.screen = pygame.display.set_mode(event.dict['size'], HWSURFACE | DOUBLEBUF | RESIZABLE)
-                    self.s_info = pygame.display.Info()
-
-                    if self.s_info.current_w / self.s_info.current_h != self.screen_with / self.screen_lenght:
-                        self.screen = pygame.display.set_mode((int(get_work_area() *
-                                                              (self.screen_with / self.screen_lenght)),
-                                                              get_work_area()),
-                                                              HWSURFACE | DOUBLEBUF | RESIZABLE)
-
-                    if self.s_info.current_h > get_work_area():
-                        self.screen = pygame.display.set_mode((self.s_info.current_w,
-                                                               int(self.s_info.current_w *
-                                                                   (self.screen_with /
-                                                                    self.screen_lenght))),
-                                                              HWSURFACE | DOUBLEBUF | RESIZABLE)
-
             # Ticking
             self.delta += self.clock.tick() / 1000.0
             while self.delta > 1 / self.max_fps:
@@ -64,6 +46,10 @@ class Game(object):
 
             self.draw()
             pygame.display.flip()
+
+    def update(self):
+        self.screen_with = int(GetSystemMetrics(0) * 0.28)
+        self.screen_lenght = int(GetSystemMetrics(1) * 0.7)
 
     def tick(self):
         self.player.tick()
