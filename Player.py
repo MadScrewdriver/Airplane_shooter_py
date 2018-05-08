@@ -5,6 +5,7 @@ from pygame.math import Vector2
 class Rocket(object):
 
     def __init__(self, game):
+        pygame.init()
         self.game = game
         self.size = self.game.screen.get_size()
         self.speed = self.size[0] / 200
@@ -28,7 +29,6 @@ class Rocket(object):
                        Vector2(self.player_size, self.player_size),
                        Vector2(-self.player_size, self.player_size)]
         self.pos.y = self.size[1] * (5/6)
-
 
     def tick(self):
         # Input

@@ -12,8 +12,9 @@ class Game(object):
 
     def __init__(self):
         pygame.init()
+
         # Config
-        self.max_fps = 120
+        self.max_fps = 100
         self.screen_with = int(GetSystemMetrics(0) * 0.28)
         self.screen_lenght = int(GetSystemMetrics(1) * 0.7)
         self.screen = pygame.display.set_mode((self.screen_with, self.screen_lenght))
@@ -24,11 +25,10 @@ class Game(object):
         self.player = Rocket(self)
         self.bullet = Bullets(self, self.player)
         self.enemy = Enemy(self, self.player, self.bullet)
-        self.bg = pygame.image.load("bg.jpg")
 
         while True:
             self.update()
-            self.screen.blit(pygame.transform.scale(self.bg, (self.screen_with, self.screen_lenght)), (0, 0))
+            self.screen.fill((0, 60, 0))
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
@@ -44,8 +44,6 @@ class Game(object):
                 self.delta -= 1 / self.max_fps
 
             # Drawing
-
-            print(pygame.display.Info())
             self.draw()
             pygame.display.flip()
 
@@ -54,11 +52,12 @@ class Game(object):
         self.screen_lenght = int(GetSystemMetrics(1) * 0.7)
 
     def tick(self):
+        self.bullet.tick()
         self.player.tick()
 
     def draw(self):
-        self.player.draw()
         self.bullet.draw()
+        self.player.draw()
         self.enemy.draw()
 
 

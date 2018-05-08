@@ -7,6 +7,7 @@ from math import sqrt
 class Enemy(object):
 
     def __init__(self, game, player, bullets):
+        pygame.init()
         self.game = game
         self.player = player
         self.enemies = []
