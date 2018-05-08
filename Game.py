@@ -25,6 +25,7 @@ class Game(object):
         self.player = Rocket(self)
         self.bullet = Bullets(self, self.player)
         self.enemy = Enemy(self, self.player, self.bullet)
+        print(self.screen_with)
 
         while True:
             self.update()

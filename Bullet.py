@@ -10,31 +10,31 @@ class Bullets(object):
         self.b_s = self.size[0]
         self.bullets = []
         self.player = player
-        self.pos = self.player.pos
+        self.pos = Vector2(self.player.pos.x + self.player.player_size.x / 2 - 4, self.player.pos.y)
         self.bull_end = 0
         self.bull_size = self.size[0] / 400
         self.bullet_speed = Vector2(0, -self.b_s)
+        self.bullet_size = 15
 
     def update(self):
         self.size = self.game.screen.get_size()
         self.b_s = self.size[0] / 200
         self.bull_size = self.size[0] / 256
         self.bullet_speed = Vector2(0, -self.b_s)
+        self.pos = Vector2(self.player.pos.x + self.player.player_size.x / 2 - (self.bullet_size / 2),
+                           self.player.pos.y)
 
     def shoot(self):
-        self.bullets.append([Vector2(0, -self.bull_size) + self.pos,
-                            Vector2(self.bull_size, self.bull_size) + self.pos,
-                            Vector2(-self.bull_size, self.bull_size) + self.pos])
+        self.bullets.append(Vector2(self.pos.x, self.pos.y))
 
     def tick(self):
         self.update()
 
         self.bull_end = 0
-        print(self.bullet_speed)
         for bull_pos in range(len(self.bullets)):
-            self.bullets[bull_pos] = [p + self.bullet_speed for p in self.bullets[bull_pos]]
+            self.bullets[bull_pos] += self.bullet_speed
 
-            if self.bullets[bull_pos][0].y < self.player.margin / 2:
+            if self.bullets[bull_pos].y < self.player.margin / 2:
                 self.bull_end += 1
 
         [self.bullets.pop(0) for _ in range(self.bull_end)]
@@ -42,6 +42,9 @@ class Bullets(object):
     def draw(self):
         self.update()
 
-        for bull_pos in range(len(self.bullets)):
-            pygame.draw.polygon(self.game.screen, (255, 255, 0), self.bullets[bull_pos])
+        for bull_pos in self.bullets:
+            self.game.screen.blit(pygame.transform.scale(pygame.image.load("bulet.png"),
+                                                         (self.bullet_size, self.bullet_size)), bull_pos)
+
+        print(self.bullets)
 

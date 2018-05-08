@@ -12,20 +12,20 @@ class Enemy(object):
         self.player = player
         self.enemies = []
         self.size = self.game.screen.get_size()
-        self.enemies_r = self.size[0] / 50
+        self.enemies_r = self.size[0] / 14
         self.bullets = bullets
         self.num_of_e = 0
 
     def update(self):
         self.size = self.game.screen.get_size()
-        self.enemies_r = self.size[0] / 50
+        self.enemies_r = self.size[0] / 15
 
     def draw(self):
         self.update()
 
         if self.num_of_e == 0:
-            self.enemies.append(Vector2(randint(int(self.size[0] / 20),
-                                                int(self.size[0] - self.size[0] / 20)
+            self.enemies.append(Vector2(randint(int(self.player.margin + self.enemies_r),
+                                                int(self.size[0] - (self.player.margin + self.enemies_r))
                                                 ),
                                         int(self.size[1] * (2 / 10))
                                         )
@@ -39,10 +39,9 @@ class Enemy(object):
                                int(self.enemies_r))
 
             for bullets_pos in self.bullets.bullets:
-                centre_bull = bullets_pos[0] - Vector2(0, self.bullets.bull_size)
 
-                if sqrt((centre_bull.x - circle_pos.x) ** 2 + (centre_bull.y - circle_pos.y) ** 2) <= self.enemies_r \
-                     + self.bullets.bull_size:
+                if sqrt((bullets_pos.x - circle_pos.x) ** 2 + (bullets_pos.y - circle_pos.y) ** 2) <= self.enemies_r \
+                     + 7.5:
                     e_destroy.append(p)
 
         a = 0
