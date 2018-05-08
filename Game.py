@@ -24,10 +24,11 @@ class Game(object):
         self.player = Rocket(self)
         self.bullet = Bullets(self, self.player)
         self.enemy = Enemy(self, self.player, self.bullet)
+        self.bg = pygame.image.load("bg.jpg")
 
         while True:
-            self.screen.fill((0, 0, 0))
-            # events
+            self.update()
+            self.screen.blit(pygame.transform.scale(self.bg, (self.screen_with, self.screen_lenght)), (0, 0))
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
@@ -44,6 +45,7 @@ class Game(object):
 
             # Drawing
 
+            print(pygame.display.Info())
             self.draw()
             pygame.display.flip()
 
