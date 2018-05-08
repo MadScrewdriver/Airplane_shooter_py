@@ -46,8 +46,8 @@ class Game(object):
             pygame.display.flip()
 
     def update(self):
-        self.screen_with = int(GetSystemMetrics(0) * 0.28)
-        self.screen_lenght = int(GetSystemMetrics(1) * 0.7)
+        self.screen_lenght = int(GetSystemMetrics(1) * 0.75)
+        self.screen_with = int(GetSystemMetrics(1) * 0.5)
 
     def tick(self):
         self.bullet.tick()
