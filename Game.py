@@ -14,7 +14,9 @@ class Game(object):
         pygame.init()
         # Config
         self.max_fps = 120
-        self.screen = pygame.display.set_mode((1280, 720), HWSURFACE | DOUBLEBUF | RESIZABLE)
+        self.screen_with = 480
+        self.screen_lenght = 720
+        self.screen = pygame.display.set_mode((self.screen_with, self.screen_lenght), HWSURFACE | DOUBLEBUF | RESIZABLE)
         self.s_info = pygame.display.Info()
         self.clock = pygame.time.Clock()
         self.delta = 0.0
@@ -39,9 +41,18 @@ class Game(object):
                     self.screen = pygame.display.set_mode(event.dict['size'], HWSURFACE | DOUBLEBUF | RESIZABLE)
                     self.s_info = pygame.display.Info()
 
-                    if self.s_info.current_w not in (1280, GetSystemMetrics(0)) or \
-                            self.s_info.current_h not in (720, get_work_area()):
-                        self.screen = pygame.display.set_mode((1280, 720), HWSURFACE | DOUBLEBUF | RESIZABLE)
+                    if self.s_info.current_w / self.s_info.current_h != self.screen_with / self.screen_lenght:
+                        self.screen = pygame.display.set_mode((int(get_work_area() *
+                                                              (self.screen_with / self.screen_lenght)),
+                                                              get_work_area()),
+                                                              HWSURFACE | DOUBLEBUF | RESIZABLE)
+
+                    if self.s_info.current_h > get_work_area():
+                        self.screen = pygame.display.set_mode((self.s_info.current_w,
+                                                               int(self.s_info.current_w *
+                                                                   (self.screen_with /
+                                                                    self.screen_lenght))),
+                                                              HWSURFACE | DOUBLEBUF | RESIZABLE)
 
             # Ticking
             self.delta += self.clock.tick() / 1000.0
