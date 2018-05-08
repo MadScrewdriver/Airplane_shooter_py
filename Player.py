@@ -26,12 +26,11 @@ class Rocket(object):
         self.margin = self.size[0] / 20
         self.player_size = Vector2(self.size[0] / 3.90, self.size[0] / 5.27)
         self.pos.y = self.size[1] * (5/6)
-        # self.pos.x += self.player_size.x / 2
 
-        # if self.size[0] != self.last_matrix:
-        #     self.pos.x = (self.pos.x / self.last_matrix) * self.size[0]
-        #
-        # self.last_matrix = self.size[0]
+        if self.size[0] != self.last_matrix:
+            self.pos.x = (self.pos.x / self.last_matrix) * self.size[0]
+
+        self.last_matrix = self.size[0]
 
     def tick(self):
         # Input

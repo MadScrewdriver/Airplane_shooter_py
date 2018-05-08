@@ -12,8 +12,8 @@ class Game(object):
 
         # Config
         self.max_fps = 100
-        self.screen_with = int(GetSystemMetrics(0) * 0.28)
-        self.screen_lenght = int(GetSystemMetrics(1) * 0.7)
+        self.screen_lenght = int(GetSystemMetrics(1) * 0.75)
+        self.screen_with = int(GetSystemMetrics(1) * 0.5)
         self.screen = pygame.display.set_mode((self.screen_with, self.screen_lenght))
         self.clock = pygame.time.Clock()
         self.delta = 0.0
@@ -22,7 +22,7 @@ class Game(object):
         self.player = Rocket(self)
         self.bullet = Bullets(self, self.player)
         self.enemy = Enemy(self, self.player, self.bullet)
-        print(self.screen_with)
+        print(self.screen_with, self.screen_lenght)
 
         while True:
             self.update()
