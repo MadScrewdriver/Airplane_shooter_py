@@ -3,9 +3,7 @@ import sys
 from Player import Rocket
 from Bullet import Bullets
 from Enemy import Enemy
-from pygame.locals import *
 from win32api import GetSystemMetrics
-from Get_work_Area import get_work_area
 
 
 class Game(object):
