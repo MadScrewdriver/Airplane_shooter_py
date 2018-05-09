@@ -15,7 +15,6 @@ class Rocket(object):
         self.touch_l = False
         self.margin = self.size[0] / 20
         self.player_size = Vector2(self.size[0] / 3.90, self.size[0] / 5.27)
-        print(self.player_size)
         self.pos = Vector2(self.size[0] / 2 - self.player_size.x / 2, self.size[1] * (5/6))
         self.last_matrix = self.size[0]
         self.player = pygame.image.load("ap1.png")
@@ -48,7 +47,6 @@ class Rocket(object):
 
     def draw(self):
         self.update()
-        player = pygame.image.load("air_plane.png")
 
         if self.pos.x <= self.margin / 2:
             self.touch_l = True
