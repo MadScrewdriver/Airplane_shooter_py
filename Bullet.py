@@ -43,8 +43,5 @@ class Bullets(object):
         self.update()
 
         for bull_pos in self.bullets:
-            self.game.screen.blit(pygame.transform.scale(pygame.image.load("bulet.png"),
+            self.game.screen.blit(pygame.transform.scale(pygame.image.load("bullet.png"),
                                                          (self.bullet_size, self.bullet_size)), bull_pos)
-
-        print(self.bullets)
-

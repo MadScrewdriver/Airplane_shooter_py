@@ -3,7 +3,9 @@ import sys
 from Player import Rocket
 from Bullet import Bullets
 from Enemy import Enemy
+from Background import Background
 from win32api import GetSystemMetrics
+
 
 class Game(object):
 
@@ -12,9 +14,9 @@ class Game(object):
 
         # Config
         self.max_fps = 100
-        self.screen_lenght = int(GetSystemMetrics(1) * 0.75)
+        self.screen_length = int(GetSystemMetrics(1) * 0.75)
         self.screen_with = int(GetSystemMetrics(1) * 0.5)
-        self.screen = pygame.display.set_mode((self.screen_with, self.screen_lenght))
+        self.screen = pygame.display.set_mode((self.screen_with, self.screen_length))
         self.clock = pygame.time.Clock()
         self.delta = 0.0
 
@@ -22,11 +24,12 @@ class Game(object):
         self.player = Rocket(self)
         self.bullet = Bullets(self, self.player)
         self.enemy = Enemy(self, self.player, self.bullet)
-        print(self.screen_with, self.screen_lenght)
+        self.background = Background(self)
+        print(self.screen_with, self.screen_length)
 
         while True:
             self.update()
-            self.screen.fill((0, 60, 0))
+            self.screen.fill((0, 0, 0))
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
@@ -46,14 +49,16 @@ class Game(object):
             pygame.display.flip()
 
     def update(self):
-        self.screen_lenght = int(GetSystemMetrics(1) * 0.75)
+        self.screen_length = int(GetSystemMetrics(1) * 0.75)
         self.screen_with = int(GetSystemMetrics(1) * 0.5)
 
     def tick(self):
+        self.background.tick()
         self.bullet.tick()
         self.player.tick()
 
     def draw(self):
+        self.background.draw()
         self.bullet.draw()
         self.player.draw()
         self.enemy.draw()
