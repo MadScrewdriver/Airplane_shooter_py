@@ -7,7 +7,7 @@ class Bullets(object):
         pygame.init()
         self.game = game
         self.size = self.game.screen.get_size()
-        self.b_s = self.size[0]
+        self.b_s = self.size[0] / 60
         self.bullets = []
         self.player = player
         self.pos = Vector2(self.player.pos.x + self.player.player_size.x / 2 - 4, self.player.pos.y)
@@ -18,7 +18,7 @@ class Bullets(object):
 
     def update(self):
         self.size = self.game.screen.get_size()
-        self.b_s = self.size[0] / 200
+        self.b_s = self.size[0] / 80
         self.bull_size = self.size[0] / 256
         self.bullet_speed = Vector2(0, -self.b_s)
         self.pos = Vector2(self.player.pos.x + self.player.player_size.x / 2 - (self.bullet_size / 2),

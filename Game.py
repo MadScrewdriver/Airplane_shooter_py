@@ -13,7 +13,7 @@ class Game(object):
         pygame.init()
 
         # Config
-        self.max_fps = 100
+        self.max_fps = 40
         self.screen_length = int(GetSystemMetrics(1) * 0.75)
         self.screen_with = int(GetSystemMetrics(1) * 0.5)
         self.screen = pygame.display.set_mode((self.screen_with, self.screen_length))
