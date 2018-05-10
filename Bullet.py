@@ -14,7 +14,7 @@ class Bullets(object):
         self.bull_end = 0
         self.bull_size = self.size[0] / 400
         self.bullet_speed = Vector2(0, -self.b_s)
-        self.bullet_size = 15
+        self.bullet_size = int(self.size[0] / 54)
 
     def update(self):
         self.size = self.game.screen.get_size()

@@ -33,16 +33,22 @@ class Enemy(object):
             self.num_of_e += 1
 
         e_destroy = []
+        p_destroy = []
         for p in range(len(self.enemies)):
             circle_pos = self.enemies[p]
             pygame.draw.circle(self.game.screen, (255, 0, 0), (int(circle_pos.x), int(circle_pos.y)),
                                int(self.enemies_r))
 
-            for bullets_pos in self.bullets.bullets:
+            for b_p in range(len(self.bullets.bullets)):
+                bullets_pos = self.bullets.bullets[b_p]
 
                 if sqrt((bullets_pos.x - circle_pos.x) ** 2 + (bullets_pos.y - circle_pos.y) ** 2) <= self.enemies_r \
-                     + 7.5:
-                    e_destroy.append(p)
+                   + self.bullets.bullet_size / 2:
+
+                    if p not in e_destroy:
+                        e_destroy.append(p)
+
+                    p_destroy.append(b_p)
 
         a = 0
         for i in e_destroy:
@@ -50,8 +56,7 @@ class Enemy(object):
             self.enemies.pop(i - a)
             a += 1
 
-
-
-
-
-
+        b = 0
+        for i in p_destroy:
+            self.bullets.bullets.pop(i - b)
+            b += 1
