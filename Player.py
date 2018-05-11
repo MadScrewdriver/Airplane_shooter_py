@@ -18,7 +18,7 @@ class Rocket(object):
         self.margin = self.size[0] / 20
         self.player_size = Vector2(self.size[0] / 3.90, self.size[0] / 5.27)
         self.pos = Vector2(self.size[0] / 2 - self.player_size.x / 2, self.size[1] * (5/6))
-        self.last_matrix = self.size[0]
+        self.last_matrix = self.size
         self.player = pygame.image.load("ap1.png")
         self.player_left = pygame.image.load("ap2.png")
         self.player_right = pygame.image.load("ap3.png")
@@ -30,12 +30,12 @@ class Rocket(object):
         self.vel_l_r = Vector2(self.speed, 0)
         self.margin = self.size[0] / 20
         self.player_size = Vector2(self.size[0] / 3.90, self.size[0] / 5.27)
-        # self.pos.y = self.size[1] * (5/6)
 
-        # if self.size[0] != self.last_matrix:
-        #     self.pos.x = (self.pos.x / self.last_matrix) * self.size[0]
+        if self.size[0] != self.last_matrix:
+            self.pos.x = (self.pos.x / self.last_matrix[0]) * self.size[0]
+            self.pos.y = (self.pos.y / self.last_matrix[1]) * self.size[1]
 
-        self.last_matrix = self.size[0]
+        self.last_matrix = self.size
         self.pressed = pygame.key.get_pressed()
 
     def tick(self):
@@ -58,7 +58,6 @@ class Rocket(object):
 
         elif pressed[pygame.K_DOWN] and not self.touch_d:
             self.pos += self.vel_u_d
-
 
     def draw(self):
         self.update()

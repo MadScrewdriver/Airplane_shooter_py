@@ -19,6 +19,9 @@ class Game(object):
         self.screen = pygame.display.set_mode((self.screen_with, self.screen_length))
         self.clock = pygame.time.Clock()
         self.delta = 0.0
+        pygame.display.set_caption("303 Polish Fighter Squadron")
+        self.title_icon = pygame.image.load("title_icon.png")
+        pygame.display.set_icon(self.title_icon)
 
         # Initialization
         self.player = Rocket(self)
