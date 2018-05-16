@@ -59,6 +59,7 @@ class Game(object):
         self.background.tick()
         self.bullet.tick()
         self.player.tick()
+        self.enemy.tick()
 
     def draw(self):
         self.background.draw()
