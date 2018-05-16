@@ -4,7 +4,7 @@ from Player import Rocket
 from Bullet import Bullets
 from Enemy import Enemy
 from Background import Background
-from win32api import GetSystemMetrics
+from screeninfo import get_monitors
 
 
 class Game(object):
@@ -14,8 +14,8 @@ class Game(object):
 
         # Config
         self.max_fps = 40
-        self.screen_length = int(GetSystemMetrics(1) * 0.75)
-        self.screen_with = int(GetSystemMetrics(1) * 0.5)
+        self.screen_length = int(get_monitors()[0].height * 0.75)
+        self.screen_with = int(get_monitors()[0].height * 0.5)
         self.screen = pygame.display.set_mode((self.screen_with, self.screen_length))
         self.clock = pygame.time.Clock()
         self.delta = 0.0
@@ -52,8 +52,8 @@ class Game(object):
             pygame.display.flip()
 
     def update(self):
-        self.screen_length = int(GetSystemMetrics(1) * 0.75)
-        self.screen_with = int(GetSystemMetrics(1) * 0.5)
+        self.screen_length = int(get_monitors()[0].height * 0.75)
+        self.screen_with = int(get_monitors()[0].height * 0.5)
 
     def tick(self):
         self.background.tick()
