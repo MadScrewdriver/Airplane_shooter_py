@@ -10,7 +10,6 @@ from screeninfo import get_monitors
 class Game(object):
 
     def __init__(self):
-        pygame.init()
 
         # Config
         self.max_fps = 40
@@ -69,6 +68,7 @@ class Game(object):
 
 
 if __name__ == '__main__':
+    pygame.init()
     Game()
 
 
