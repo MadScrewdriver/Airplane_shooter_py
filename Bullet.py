@@ -4,7 +4,6 @@ from pygame.math import Vector2
 
 class Bullets(object):
     def __init__(self, game, player):
-        pygame.init()
         self.game = game
         self.size = self.game.screen.get_size()
         self.b_s = self.size[0] / 80
