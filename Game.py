@@ -15,6 +15,7 @@ class Game(object):
         self.max_fps = 40
         self.screen_length = int(get_monitors()[0].height * 0.75)
         self.screen_with = int(get_monitors()[0].height * 0.5)
+        self.margin = self.screen_with / 20
         self.screen = pygame.display.set_mode((self.screen_with, self.screen_length))
         self.clock = pygame.time.Clock()
         self.delta = 0.0
@@ -24,8 +25,8 @@ class Game(object):
 
         # Initialization
         self.player = Rocket(self)
-        self.bullet = Bullets(self, self.player)
-        self.enemy = Enemy(self, self.player, self.bullet)
+        self.bullet = Bullets(self, self.player.player, self.margin)
+        self.enemy = Enemy(self, self.player.player, self.bullet)
         self.background = Background(self)
         print(self.screen_with, self.screen_length)
 

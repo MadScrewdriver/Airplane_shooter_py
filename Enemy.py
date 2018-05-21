@@ -25,8 +25,9 @@ class Enemy(object):
 
     def __init__(self, game, player, bullets):
         self.game = game
-        self.player = player
+        self.margin = self.game.margin
         self.enemies = []
+        self.player = player
         self.size = self.game.screen.get_size()
         self.enemies_size = Vector2(self.size[0] / 3.90, self.size[0] / 5.27)
         self.bullets = bullets
@@ -48,8 +49,8 @@ class Enemy(object):
 
     def add_enemies(self):
         if self.num_of_e == 0:
-            self.enemies.append(Vector2(randint(int(self.player.margin), int(self.size[0] - (self.player.margin +
-                                                                                             self.enemies_size.x))),
+            self.enemies.append(Vector2(randint(int(self.margin), int(self.size[0] - (self.margin +
+                                                                                      self.enemies_size.x))),
                                         int(self.size[1] * (2 / 10))
                                         )
                                 )
@@ -129,8 +130,8 @@ class Enemy(object):
         for exp in self.explo:
             self.explo_pic = pygame.image.load("./explosion/" + str(exp[1]) + ".png")
             self.game.screen.blit(pygame.transform.scale(self.explo_pic,
-                                                         (int(self.player.player_size.x),
-                                                          int(self.player.player_size.y))),
+                                                         (int(self.player.get_width()),
+                                                          int(self.player.get_height()))),
                                   (int(exp[0].x),
                                    int(exp[0].y)))
 
