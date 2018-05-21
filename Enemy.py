@@ -1,24 +1,6 @@
 import pygame
-from pygame.math import Vector2
 from random import randint
-from math import sqrt
-
-
-def detect_collision(x2, y2, w2, h2, x1, y1, w1, h1):
-    if x2 + w2 >= x1 >= x2 and y2 + h2 >= y1 >= y2:
-        return True
-
-    elif x2 + w2 >= x1 + w1 >= x2 and y2 + h2 >= y1 >= y2:
-        return True
-
-    elif x2 + w2 >= x1 >= x2 and y2 + h2 >= y1 + h1 >= y2:
-        return True
-
-    elif x2 + w2 >= x1 + w1 >= x2 and y2 + h2 >= y1 + h1 >= y2:
-        return True
-
-    else:
-        return False
+from Basic_Component import BasicComponent
 
 
 class Enemy(object):
@@ -29,31 +11,32 @@ class Enemy(object):
         self.enemies = []
         self.player = player
         self.size = self.game.screen.get_size()
-        self.enemies_size = Vector2(self.size[0] / 3.90, self.size[0] / 5.27)
         self.bullets = bullets
         self.num_of_e = 0
         self.explo = []
         self.explo_end = []
         self.explo_pic = None
-        self.enemy = pygame.image.load("en.png")
         self.e_destroy = []
         self.p_destroy = []
-        self.enemy_pos = None
+        self.enemy_object = None
+        self.enemy_width = self.size[0] / 3.90
+        self.enemy_height = self.size[0] / 5.27
 
     def update(self):
         self.size = self.game.screen.get_size()
-        self.enemies_size = Vector2(self.size[0] / 3.90, self.size[0] / 5.27)
 
     def tick(self):
         self.blast()
 
     def add_enemies(self):
         if self.num_of_e == 0:
-            self.enemies.append(Vector2(randint(int(self.margin), int(self.size[0] - (self.margin +
-                                                                                      self.enemies_size.x))),
-                                        int(self.size[1] * (2 / 10))
-                                        )
-                                )
+            self.enemies.append(BasicComponent(
+                randint(int(self.margin), int(self.size[0] - (self.margin + self.size[0] / 3.90))),
+                int(self.size[1] * (2 / 10)),
+                self.enemy_width,
+                self.enemy_height,
+                ["en.png"], self.game.screen))
+
             self.num_of_e += 1
 
     def remove_enemies(self):
@@ -73,20 +56,29 @@ class Enemy(object):
         for b_p in range(len(self.bullets.bullets)):
             bullets_pos = self.bullets.bullets[b_p]
 
-            if detect_collision(self.enemy_pos.x + ((12 / 27) * self.enemies_size.x),
-                                self.enemy_pos.y, self.enemies_size.x * (3 / 27), self.enemies_size.y,
-                                bullets_pos.x, bullets_pos.y, self.bullets.bullet_size,
-                                self.bullets.bullet_size) or \
-                    \
-                    detect_collision(self.enemy_pos.x, self.enemy_pos.y + ((8 / 21) * self.enemies_size.x),
-                                     self.enemies_size.x, self.enemies_size.y * (3 / 21),
-                                     bullets_pos.x, bullets_pos.y, self.bullets.bullet_size,
-                                     self.bullets.bullet_size) or \
-                    \
-                    detect_collision(self.enemy_pos.x + ((10 / 27) * self.enemies_size.x),
-                                     self.enemy_pos.y, self.enemies_size.x * (7 / 27), self.enemies_size.y * (2 / 21),
-                                     bullets_pos.x, bullets_pos.y, self.bullets.bullet_size,
-                                     self.bullets.bullet_size):
+            body = BasicComponent(self.enemy_object.x + ((12 / 27) * self.enemy_width),
+                                  self.enemy_object.y,
+                                  self.enemy_width * (3 / 27),
+                                  self.enemy_height,
+                                  [],
+                                  self.game.screen)
+
+            wings = BasicComponent(self.enemy_object.x,
+                                   self.enemy_object.y + ((8 / 21) * self.enemy_width),
+                                   self.enemy_width,
+                                   self.enemy_height * (3 / 21),
+                                   [],
+                                   self.game.screen)
+
+            stabilizer = BasicComponent(self.enemy_object.x + (10 / 27) * self.enemy_width,
+                                        self.enemy_object.y,
+                                        self.enemy_width * (7 / 27),
+                                        self.enemy_height * (2 / 21),
+                                        [],
+                                        self.game.screen)
+
+            if bullets_pos.detect_collision(body) or bullets_pos.detect_collision(wings) or \
+                    bullets_pos.detect_collision(stabilizer):
 
                 if p not in self.e_destroy:
                     self.explo.append([self.enemies[p], 16])
@@ -117,12 +109,8 @@ class Enemy(object):
         self.p_destroy = []
 
         for p in range(len(self.enemies)):
-            self.enemy_pos = self.enemies[p]
-            self.game.screen.blit(pygame.transform.scale(self.enemy,
-                                                         (int(self.enemies_size.x),
-                                                          int(self.enemies_size.y))),
-                                  (int(self.enemy_pos.x),
-                                   int(self.enemy_pos.y)))
+            self.enemy_object = self.enemies[p]
+            self.enemy_object.draw(0)
             self.touch(p)
 
         self.remove_enemies()

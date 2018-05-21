@@ -1,5 +1,4 @@
 import pygame
-from pygame.math import Vector2
 from Basic_Component import BasicComponent
 
 

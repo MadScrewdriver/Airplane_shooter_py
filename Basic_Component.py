@@ -17,19 +17,9 @@ class BasicComponent(Vector2):
         return self._width
 
     def detect_collision(self, second_object):
-        bigger = (self.width * self.height) > (second_object.get_width() * second_object.get_height())
+        bigger = (self._width * self._height) > (second_object.get_width() * second_object.get_height())
 
         if bigger:
-            x1 = self.x
-            y1 = self.y
-            w1 = self._height
-            h1 = self._width
-            x2 = second_object.x
-            y2 = second_object.y
-            w2 = second_object.get_width()
-            h2 = second_object.get_height()
-
-        else:
             x1 = second_object.x
             y1 = second_object.y
             w1 = second_object.get_width()
@@ -38,6 +28,16 @@ class BasicComponent(Vector2):
             y2 = self.y
             h2 = self._height
             w2 = self._width
+
+        else:
+            x1 = self.x
+            y1 = self.y
+            w1 = self._height
+            h1 = self._width
+            x2 = second_object.x
+            y2 = second_object.y
+            w2 = second_object.get_width()
+            h2 = second_object.get_height()
 
         if x2 + w2 >= x1 >= x2 and y2 + h2 >= y1 >= y2:
             return True
