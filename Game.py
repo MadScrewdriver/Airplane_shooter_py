@@ -7,6 +7,7 @@ from Background import Background
 from settings import GlobalConstants
 
 
+# Main class
 class Game(GlobalConstants):
 
     def __init__(self):
