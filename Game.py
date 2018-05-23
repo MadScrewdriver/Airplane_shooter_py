@@ -26,6 +26,7 @@ class Game(GlobalConstants):
         self.enemy = Enemy()
         self.background = Background()
 
+        # Main loop
         while True:
             self.SCREEN.fill((0, 0, 0))
 
