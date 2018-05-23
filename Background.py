@@ -1,37 +1,36 @@
-import pygame
+from settings import BackgroundConstants
+from Basic_Component import BasicComponent
 
 
-class Background(object):
+class Background(BackgroundConstants):
 
-    def __init__(self, game):
-        self.game = game
-        self.screen = game.screen
-        self.background_1 = pygame.image.load("Bg.png")
-        self.background_2 = pygame.image.load("Bg.png")
-        self.screen_with = game.screen_with
-        self.screen_length = game.screen_length
-        self.bg_speed = 2
-        self.bg_1_pos = -self.screen_length * 2
-        self.bg_2_pos = 0
+    def __init__(self):
+        self.background_1 = BasicComponent(0, -self.SCREEN_LENGTH * 2, self.SCREEN_WITH, 
+                                           self.SCREEN_LENGTH * 3,
+                                           ["Pictures/Background/background.png" for _ in range(2)],
+                                           self.SCREEN)
+
+        self.background_2 = BasicComponent(0, 0, self.SCREEN_WITH, self.SCREEN_LENGTH * 3,
+                                           ["Pictures/Background/background.png" for _ in range(2)], self.SCREEN)
         self.two = False
 
+        super().__init__()
+
     def tick(self):
-        self.bg_1_pos += self.bg_speed
+        self.background_1.y += self.BG_SPEED
 
-        if self.screen_length >= self.bg_1_pos >= 0:
+        if self.SCREEN_LENGTH >= self.background_1.y >= 0:
             self.two = True
-            self.bg_2_pos = (self.bg_1_pos - self.screen_length * 3)
+            self.background_2.y = (self.background_1.y - self.SCREEN_LENGTH * 3)
 
-        if self.bg_1_pos > self.screen_length and self.two:
+        if self.background_1.y > self.SCREEN_LENGTH and self.two:
             self.two = False
-            self.bg_1_pos = self.bg_2_pos
+            self.background_1.y = self.background_2.y
 
     def draw(self):
 
         if self.two:
-            self.screen.blit(pygame.transform.scale(self.background_2, (self.screen_with, self.screen_length * 3)),
-                             (0, self.bg_2_pos))
+            self.background_2.draw(0)
 
-        self.screen.blit(pygame.transform.scale(self.background_1, (self.screen_with, self.screen_length * 3)),
-                         (0, self.bg_1_pos))
+        self.background_1.draw(0)
 

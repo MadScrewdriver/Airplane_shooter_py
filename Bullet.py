@@ -1,45 +1,33 @@
-import pygame
-from pygame.math import Vector2
+from Basic_Component import BasicComponent
+from settings import BulletConstants
 
 
-class Bullets(object):
-    def __init__(self, game, player):
-        pygame.init()
-        self.game = game
-        self.size = self.game.screen.get_size()
-        self.b_s = self.size[0] / 80
-        self.bullets = []
-        self.player = player
-        self.pos = Vector2(self.player.pos.x + self.player.player_size.x / 2 - 4, self.player.pos.y)
+class Bullets(BulletConstants):
+    def __init__(self):
         self.bull_end = 0
-        self.bullet_speed = Vector2(0, -self.b_s)
-        self.bullet_size = int(self.size[0] / 54)
 
-    def update(self):
-        self.size = self.game.screen.get_size()
-        self.b_s = self.size[0] / 80
-        self.bullet_speed = Vector2(0, -self.b_s)
-        self.pos = Vector2(self.player.pos.x + self.player.player_size.x / 2 - (self.bullet_size / 2),
-                           self.player.pos.y)
+        super().__init__()
 
     def shoot(self):
-        self.bullets.append(Vector2(self.pos.x, self.pos.y))
+        self.BULLETS.append(BasicComponent(self.PLAYER.x + (self.PLAYER.get_width() / 2 - self.BULLET_SIZE / 2),
+                                           self.PLAYER.y,
+                                           self.BULLET_SIZE,
+                                           self.BULLET_SIZE,
+                                           ["Pictures/Bullets/Fireball/bullet.png"],
+                                           self.SCREEN
+                                           ))
 
     def tick(self):
-        self.update()
 
         self.bull_end = 0
-        for bull_pos in range(len(self.bullets)):
-            self.bullets[bull_pos] += self.bullet_speed
+        for bull_pos in range(len(self.BULLETS)):
+            self.BULLETS[bull_pos].y += self.BULLET_SPEED
 
-            if self.bullets[bull_pos].y < self.player.margin / 2:
+            if self.BULLETS[bull_pos].y < self.MARGIN / 2:
                 self.bull_end += 1
 
-        [self.bullets.pop(0) for _ in range(self.bull_end)]
+        [self.BULLETS.pop(0) for _ in range(self.bull_end)]
 
     def draw(self):
-        self.update()
-
-        for bull_pos in self.bullets:
-            self.game.screen.blit(pygame.transform.scale(pygame.image.load("bullet.png"),
-                                                         (self.bullet_size, self.bullet_size)), bull_pos)
+        for bull_object in self.BULLETS:
+            bull_object.draw(0)
