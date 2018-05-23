@@ -8,6 +8,7 @@ class BasicComponent(Vector2):
         self._width = width
         self._image = [pygame.image.load(i) for i in image]
         self._screen = screen
+
         super().__init__(x, y)
 
     def get_height(self):
@@ -55,7 +56,6 @@ class BasicComponent(Vector2):
             return False
 
     def draw(self, img_num=0):
-        print(self.x, self.y)
         self._screen.blit(pygame.transform.scale(self._image[img_num],
                                                  (int(self._width),
                                                   int(self._height))),

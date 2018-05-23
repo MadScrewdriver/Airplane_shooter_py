@@ -4,35 +4,30 @@ from Player import Rocket
 from Bullet import Bullets
 from Enemy import Enemy
 from Background import Background
-from screeninfo import get_monitors
+from settings import GlobalConstants
 
 
-class Game(object):
+class Game(GlobalConstants):
 
     def __init__(self):
 
         # Config
         self.max_fps = 40
-        self.screen_length = int(get_monitors()[0].height * 0.75)
-        self.screen_with = int(get_monitors()[0].height * 0.5)
-        self.margin = self.screen_with / 20
-        self.screen = pygame.display.set_mode((self.screen_with, self.screen_length))
         self.clock = pygame.time.Clock()
         self.delta = 0.0
         pygame.display.set_caption("303 Polish Fighter Squadron")
-        self.title_icon = pygame.image.load("title_icon.png")
+        self.title_icon = pygame.image.load("Pictures/TitleIcon/title_icon.png")
         pygame.display.set_icon(self.title_icon)
+        print(self.SCREEN_WITH, self.SCREEN_LENGTH)
 
         # Initialization
-        self.player = Rocket(self)
-        self.bullet = Bullets(self, self.player.player, self.margin)
-        self.enemy = Enemy(self, self.player.player, self.bullet)
-        self.background = Background(self)
-        print(self.screen_with, self.screen_length)
+        self.player = Rocket()
+        self.bullet = Bullets()
+        self.enemy = Enemy()
+        self.background = Background()
 
         while True:
-            self.update()
-            self.screen.fill((0, 0, 0))
+            self.SCREEN.fill((0, 0, 0))
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
@@ -50,10 +45,6 @@ class Game(object):
             # Drawing
             self.draw()
             pygame.display.flip()
-
-    def update(self):
-        self.screen_length = int(get_monitors()[0].height * 0.75)
-        self.screen_with = int(get_monitors()[0].height * 0.5)
 
     def tick(self):
         self.background.tick()
