@@ -4,7 +4,7 @@ from Player import Rocket
 from Bullet import Bullets
 from Enemy import Enemy
 from Background import Background
-from settings import GlobalConstants
+from settings import GlobalConstants, Score
 
 
 # Main class
@@ -19,7 +19,8 @@ class Game(GlobalConstants):
         pygame.display.set_caption("303 Polish Fighter Squadron")
         self.title_icon = pygame.image.load("Pictures/TitleIcon/title_icon.png")
         pygame.display.set_icon(self.title_icon)
-        print(self.SCREEN_WITH, self.SCREEN_LENGTH)
+        self.score = 0
+        # print(self.SCREEN_WITH, self.SCREEN_LENGTH)
 
         # Initialization
         self.player = Rocket()
@@ -53,9 +54,10 @@ class Game(GlobalConstants):
         self.bullet.tick()
         self.player.tick()
         self.enemy.tick()
+        self.score = self.enemy.touch(self.score)
 
     def draw(self):
-        self.background.draw()
+        self.background.draw(self.score)
         self.bullet.draw()
         self.player.draw()
         self.enemy.draw()

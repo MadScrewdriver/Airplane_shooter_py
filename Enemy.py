@@ -19,7 +19,7 @@ class Enemy(EnemiesConstants):
         self.blast()
 
     def add_enemies(self):
-        if self.num_of_e == 0:
+        if self.num_of_e < 1:
             self.ENEMIES.append(BasicComponent(
                 randint(int(self.MARGIN), int(self.SCREEN_WITH - (self.MARGIN + self.SCREEN_WITH / 3.90))),
                 int(self.SCREEN_LENGTH * (2 / 10)),
@@ -41,39 +41,49 @@ class Enemy(EnemiesConstants):
             self.BULLETS.pop(i - b)
             b += 1
 
-    def touch(self, e):
+    def touch(self, score):
+        self.enemy_destroy = []
+        self.bullets_destroy = []
 
-        for b_p in range(len(self.BULLETS)):
-            bullets_pos = self.BULLETS[b_p]
+        for e in range(len(self.ENEMIES)):
+            self.enemy_object = self.ENEMIES[e]
+            self.enemy_object.draw(0)
+            for b_p in range(len(self.BULLETS)):
+                bullets_pos = self.BULLETS[b_p]
 
-            body = BasicComponent(self.enemy_object.x + ((12 / 27) * self.ENEMY_WITH),
-                                  self.enemy_object.y,
-                                  self.ENEMY_WITH * (3 / 27),
-                                  self.ENEMY_HEIGHT,
-                                  [],
-                                  self.SCREEN)
+                body = BasicComponent(self.enemy_object.x + ((12 / 27) * self.ENEMY_WITH),
+                                      self.enemy_object.y,
+                                      self.ENEMY_WITH * (3 / 27),
+                                      self.ENEMY_HEIGHT,
+                                      [],
+                                      self.SCREEN)
 
-            wings = BasicComponent(self.enemy_object.x,
-                                   self.enemy_object.y + ((8 / 21) * self.ENEMY_WITH),
-                                   self.ENEMY_WITH,
-                                   self.ENEMY_HEIGHT * (3 / 21),
-                                   [],
-                                   self.SCREEN)
+                wings = BasicComponent(self.enemy_object.x,
+                                       self.enemy_object.y + ((8 / 21) * self.ENEMY_WITH),
+                                       self.ENEMY_WITH,
+                                       self.ENEMY_HEIGHT * (3 / 21),
+                                       [],
+                                       self.SCREEN)
 
-            stabilizer = BasicComponent(self.enemy_object.x + (10 / 27) * self.ENEMY_WITH,
-                                        self.enemy_object.y,
-                                        self.ENEMY_WITH * (7 / 27),
-                                        self.ENEMY_HEIGHT * (2 / 21),
-                                        [],
-                                        self.SCREEN)
+                stabilizer = BasicComponent(self.enemy_object.x + (10 / 27) * self.ENEMY_WITH,
+                                            self.enemy_object.y,
+                                            self.ENEMY_WITH * (7 / 27),
+                                            self.ENEMY_HEIGHT * (2 / 21),
+                                            [],
+                                            self.SCREEN)
 
-            if bullets_pos.detect_collision(body) or bullets_pos.detect_collision(wings) or \
-                    bullets_pos.detect_collision(stabilizer):
+                if bullets_pos.detect_collision(body) or bullets_pos.detect_collision(wings) or \
+                        bullets_pos.detect_collision(stabilizer):
 
-                if e not in self.enemy_destroy:
-                    self.explosions.append([self.enemy_object, 16])
-                    self.enemy_destroy.append(e)
-                    self.bullets_destroy.append(b_p)
+                    if e not in self.enemy_destroy:
+                        self.explosions.append([self.enemy_object, 16])
+                        self.enemy_destroy.append(e)
+                        self.bullets_destroy.append(b_p)
+
+                    score += 10
+
+        self.remove_enemies()
+        return score
 
     def blast(self):
         explosion_end = []
@@ -93,15 +103,8 @@ class Enemy(EnemiesConstants):
     def draw(self):
         self.add_enemies()
 
-        self.enemy_destroy = []
-        self.bullets_destroy = []
-
-        for p in range(len(self.ENEMIES)):
-            self.enemy_object = self.ENEMIES[p]
-            self.enemy_object.draw(0)
-            self.touch(p)
-
-        self.remove_enemies()
+        for en in self.ENEMIES:
+            en.draw(0)
 
         for exp in self.explosions:
             explosion_pic = pygame.image.load("Pictures/Explosion/" + str(exp[1]) + ".png")
