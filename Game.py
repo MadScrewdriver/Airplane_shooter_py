@@ -20,7 +20,7 @@ class Game(GlobalConstants):
         self.title_icon = pygame.image.load("Pictures/TitleIcon/title_icon.png")
         pygame.display.set_icon(self.title_icon)
         self.score = 0
-        # print(self.SCREEN_WITH, self.SCREEN_LENGTH)
+        print(self.SCREEN_WITH, self.SCREEN_LENGTH)
 
         # Initialization
         self.player = Rocket()

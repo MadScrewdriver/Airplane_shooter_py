@@ -15,19 +15,29 @@ class Enemy(EnemiesConstants):
 
         super().__init__()
 
+    def move_enemy(self):
+        for e in range(len(self.ENEMIES)):
+            enemy_pos = self.ENEMIES[e]
+            enemy_pos.y += self.ENEMY_SPEED
+
+            if enemy_pos.y == self.SCREEN_LENGTH:
+                self.enemy_destroy.append(e)
+
     def tick(self):
         self.blast()
+        self.move_enemy()
 
     def add_enemies(self):
-        if self.num_of_e < 1:
-            self.ENEMIES.append(BasicComponent(
-                randint(int(self.MARGIN), int(self.SCREEN_WITH - (self.MARGIN + self.SCREEN_WITH / 3.90))),
-                int(self.SCREEN_LENGTH * (2 / 10)),
-                self.ENEMY_WITH,
-                self.ENEMY_HEIGHT,
-                ["Pictures\Enemy\BasicEnemy\straight.png"], self.SCREEN))
+        if self.num_of_e < 5:
+            for n in range(5 - self.num_of_e):
+                self.ENEMIES.append(BasicComponent(
+                    randint(int(self.MARGIN), int(self.SCREEN_WITH - (self.MARGIN + self.SCREEN_WITH / 3.90))),
+                    int(-self.ENEMY_HEIGHT),
+                    self.ENEMY_WITH,
+                    self.ENEMY_HEIGHT,
+                    ["Pictures\Enemy\BasicEnemy\straight.png"], self.SCREEN))
 
-            self.num_of_e += 1
+                self.num_of_e += 1
 
     def remove_enemies(self):
         a = 0
@@ -41,9 +51,10 @@ class Enemy(EnemiesConstants):
             self.BULLETS.pop(i - b)
             b += 1
 
-    def touch(self, score):
         self.enemy_destroy = []
         self.bullets_destroy = []
+
+    def touch(self, score):
 
         for e in range(len(self.ENEMIES)):
             self.enemy_object = self.ENEMIES[e]
@@ -78,7 +89,8 @@ class Enemy(EnemiesConstants):
                     if e not in self.enemy_destroy:
                         self.explosions.append([self.enemy_object, 16])
                         self.enemy_destroy.append(e)
-                        self.bullets_destroy.append(b_p)
+                        if b_p not in self.bullets_destroy:
+                            self.bullets_destroy.append(b_p)
 
                     score += 10
 
