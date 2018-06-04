@@ -14,7 +14,7 @@ class Background(BackgroundConstants):
         self.background_2 = BasicComponent(0, 0, self.SCREEN_WITH, self.SCREEN_LENGTH * 3,
                                            self.BACK_PIC_PATHS, self.SCREEN)
         self.two = False
-        self.score_font = pygame.font.Font('Pixel_font.ttf', 45)
+        self.score_font = pygame.font.Font(self.PIX_FONT_PATH, 45)
 
         super().__init__()
 

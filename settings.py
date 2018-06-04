@@ -24,6 +24,7 @@ class GlobalConstants:
     BACK_PATH = os.path.join("Pictures", "Background")
     B_E_PATH = os.path.join("Pictures", "Enemy", "BasicEnemy")
     EXPLO_PATH = os.path.join("Pictures", "Explosion")
+    PIX_FONT_PATH = os.path.join("Fonts", "Pixel_font.ttf")
 
     BULL_PIC_PATHS = [os.path.join(BULL_PATH, "bullet.png")]
     BACK_PIC_PATHS = [os.path.join(BACK_PATH, "background.png")]
