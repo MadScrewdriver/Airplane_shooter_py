@@ -1,4 +1,4 @@
-import pygame
+import pygame, os
 from random import randint
 from Basic_Component import BasicComponent
 from settings import EnemiesConstants
@@ -35,7 +35,7 @@ class Enemy(EnemiesConstants):
                     int(-self.ENEMY_HEIGHT),
                     self.ENEMY_WITH,
                     self.ENEMY_HEIGHT,
-                    ["Pictures\Enemy\BasicEnemy\straight.png"], self.SCREEN))
+                    self.ENEMY_PIC_PATHS, self.SCREEN))
 
                 self.num_of_e += 1
 
@@ -119,7 +119,7 @@ class Enemy(EnemiesConstants):
             en.draw(0)
 
         for exp in self.explosions:
-            explosion_pic = pygame.image.load("Pictures/Explosion/" + str(exp[1]) + ".png")
+            explosion_pic = pygame.image.load(os.path.join(self.EXPLO_PATH, str(exp[1]) + ".png"))
             self.SCREEN.blit(pygame.transform.scale(explosion_pic,
                                                     (int(self.PLAYER.get_width()),
                                                      int(self.PLAYER.get_height()))),

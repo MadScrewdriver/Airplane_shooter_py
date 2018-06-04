@@ -15,7 +15,21 @@ class Score:
 
 
 class GlobalConstants:
-    b_a_path = os.path.join("Pictures", "Player", "BasicAirplane")
+
+    # --------------------PATHS----------------------------------------------------
+    B_A_PATH = os.path.join("Pictures", "Player", "BasicAirplane")
+    T_I_PATH = os.path.join("Pictures", "TitleIcon", "title_icon.png")
+    BULL_PATH = os.path.join("Pictures", "Bullets", "Fireball")
+    BACK_PATH = os.path.join("Pictures", "Background")
+    B_E_PATH = os.path.join("Pictures", "Enemy", "BasicEnemy")
+    EXPLO_PATH = os.path.join("Pictures", "Explosion")
+
+    BULL_PIC_PATHS = [os.path.join(BULL_PATH, "bullet.png")]
+    BACK_PIC_PATHS = [os.path.join(BACK_PATH, "background.png")]
+    ENEMY_PIC_PATHS = [os.path.join(B_E_PATH, "straight.png")]
+    PLAYER_PIC_PATHS = (lambda x=B_A_PATH: [os.path.join(x, p + ".png") for p in ["straight", "left", "right"]])()
+
+    # --------------------OTHER VARIABLES-------------------------------------------
     MARGIN = int(get_monitors()[0].height * 0.025)
     SCREEN_LENGTH = int(get_monitors()[-1].height * 0.75)
     SCREEN_WITH = int(get_monitors()[-1].height * 0.5)
@@ -23,9 +37,8 @@ class GlobalConstants:
     ENEMIES = []
     BULLETS = []
     BULLET_SIZE = int(SCREEN_WITH / 54)
-    PLAYER_PNGS = (lambda x=b_a_path: [os.path.join(x, p + ".png") for p in ["straight", "left", "right"]])()
     PLAYER = BasicComponent(SCREEN_WITH / 2 - (SCREEN_WITH / 3.90) / 2, SCREEN_LENGTH * (4 / 6),
-                            SCREEN_WITH / 3.90, SCREEN_WITH / 5.27, PLAYER_PNGS, SCREEN)
+                            SCREEN_WITH / 3.90, SCREEN_WITH / 5.27, PLAYER_PIC_PATHS, SCREEN)
 
 
 class BulletConstants(GlobalConstants):

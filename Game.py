@@ -17,7 +17,7 @@ class Game(GlobalConstants):
         self.clock = pygame.time.Clock()
         self.delta = 0.0
         pygame.display.set_caption("303 Polish Fighter Squadron")
-        self.title_icon = pygame.image.load("Pictures/TitleIcon/title_icon.png")
+        self.title_icon = pygame.image.load(self.T_I_PATH)
         pygame.display.set_icon(self.title_icon)
         self.score = 0
         print(self.SCREEN_WITH, self.SCREEN_LENGTH)

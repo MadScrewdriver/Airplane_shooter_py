@@ -13,7 +13,7 @@ class Bullets(BulletConstants):
                                            self.PLAYER.y,
                                            self.BULLET_SIZE,
                                            self.BULLET_SIZE,
-                                           ["Pictures/Bullets/Fireball/bullet.png"],
+                                           self.BULL_PIC_PATHS,
                                            self.SCREEN
                                            ))
 
