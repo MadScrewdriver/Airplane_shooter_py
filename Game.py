@@ -1,10 +1,9 @@
-import pygame
-import sys
+import pygame, sys, time 
 from Player import Rocket
 from Bullet import Bullets
 from Enemy import Enemy
 from Background import Background
-from settings import GlobalConstants, Score
+from settings import GlobalConstants
 
 
 # Main class
@@ -14,10 +13,11 @@ class Game(GlobalConstants):
 
         # Config
         self.max_fps = 40
+        self.fps = 0
         self.clock = pygame.time.Clock()
         self.delta = 0.0
-        pygame.display.set_caption("303 Polish Fighter Squadron")
         self.title_icon = pygame.image.load(self.T_I_PATH)
+        pygame.display.set_caption("303 Polish Fighter Squadron     fps: " + str(self.fps))
         pygame.display.set_icon(self.title_icon)
         self.score = 0
         print(self.SCREEN_WITH, self.SCREEN_LENGTH)
@@ -27,6 +27,7 @@ class Game(GlobalConstants):
         self.bullet = Bullets()
         self.enemy = Enemy()
         self.background = Background()
+        self.time_start = time.time()
 
         # Main loop
         while True:
@@ -40,6 +41,7 @@ class Game(GlobalConstants):
                     self.bullet.shoot()
 
             # Ticking
+            self.fps += 1
             self.delta += self.clock.tick() / 1000.0
             while self.delta > 1 / self.max_fps:
                 self.tick()
@@ -47,6 +49,12 @@ class Game(GlobalConstants):
 
             # Drawing
             self.draw()
+
+            if time.time() - self.time_start >= 1:
+                pygame.display.set_caption("303 Polish Fighter Squadron     fps: " + str(self.fps))
+                self.fps = 0
+                self.time_start = time.time()
+
             pygame.display.flip()
 
     def tick(self):
