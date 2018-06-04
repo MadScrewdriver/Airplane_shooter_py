@@ -1,6 +1,7 @@
-import pygame
+import pygame, os
 from screeninfo import get_monitors
 from Basic_Component import BasicComponent
+
 
 class Score:
     def __init__(self):
@@ -14,6 +15,7 @@ class Score:
 
 
 class GlobalConstants:
+    b_a_path = os.path.join("Pictures", "Player", "BasicAirplane")
     MARGIN = int(get_monitors()[0].height * 0.025)
     SCREEN_LENGTH = int(get_monitors()[-1].height * 0.75)
     SCREEN_WITH = int(get_monitors()[-1].height * 0.5)
@@ -21,10 +23,9 @@ class GlobalConstants:
     ENEMIES = []
     BULLETS = []
     BULLET_SIZE = int(SCREEN_WITH / 54)
+    PLAYER_PNGS = (lambda x=b_a_path: [os.path.join(x, p + ".png") for p in ["straight", "left", "right"]])()
     PLAYER = BasicComponent(SCREEN_WITH / 2 - (SCREEN_WITH / 3.90) / 2, SCREEN_LENGTH * (4 / 6),
-                            SCREEN_WITH / 3.90, SCREEN_WITH / 5.27,
-                            ["Pictures/Player/BasicAirplane/" + p + ".png" for p in ["straight", "left", "right"]],
-                            SCREEN)
+                            SCREEN_WITH / 3.90, SCREEN_WITH / 5.27, PLAYER_PNGS, SCREEN)
 
 
 class BulletConstants(GlobalConstants):
