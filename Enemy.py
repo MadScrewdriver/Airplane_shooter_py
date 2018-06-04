@@ -1,4 +1,5 @@
-import pygame, os
+import pygame
+import os
 from random import randint
 from Basic_Component import BasicComponent
 from settings import EnemiesConstants

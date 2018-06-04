@@ -1,4 +1,6 @@
-import pygame, sys, time 
+import pygame
+import sys
+import time
 from Player import Rocket
 from Bullet import Bullets
 from Enemy import Enemy
@@ -12,7 +14,7 @@ class Game(GlobalConstants):
     def __init__(self):
 
         # Config
-        self.max_fps = 40
+        self.max_tps = 40
         self.fps = 0
         self.clock = pygame.time.Clock()
         self.delta = 0.0
@@ -43,11 +45,11 @@ class Game(GlobalConstants):
             # Ticking
             self.fps += 1
             self.delta += self.clock.tick() / 1000.0
-            while self.delta > 1 / self.max_fps:
+            while self.delta > 1 / self.max_tps:
                 self.tick()
-                self.delta -= 1 / self.max_fps
+                self.delta -= 1 / self.max_tps
 
-            # Drawing
+            # Drawinga
             self.draw()
 
             if time.time() - self.time_start >= 1:

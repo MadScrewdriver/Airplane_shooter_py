@@ -1,4 +1,5 @@
-import pygame, os
+import pygame
+import os
 from screeninfo import get_monitors
 from Basic_Component import BasicComponent
 
