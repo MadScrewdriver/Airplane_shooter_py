@@ -1,6 +1,5 @@
 import pygame
 import os
-from Basic_Component import BasicComponent
 from Settings import MesserschmittConstants
 from Levels import Levels
 
@@ -69,29 +68,7 @@ class Enemy(MesserschmittConstants, Levels):
             for b_p in range(len(self.BULLETS)):
                 bullets_pos = self.BULLETS[b_p]
 
-                body = BasicComponent(self.enemy_object.x + ((12 / 27) * self.ENEMY_WITH),
-                                      self.enemy_object.y,
-                                      self.ENEMY_WITH * (3 / 27),
-                                      self.ENEMY_HEIGHT,
-                                      [],
-                                      self.SCREEN, "body")
-
-                wings = BasicComponent(self.enemy_object.x,
-                                       self.enemy_object.y + ((8 / 21) * self.ENEMY_WITH),
-                                       self.ENEMY_WITH,
-                                       self.ENEMY_HEIGHT * (3 / 21),
-                                       [],
-                                       self.SCREEN, "wings")
-
-                stabilizer = BasicComponent(self.enemy_object.x + (10 / 27) * self.ENEMY_WITH,
-                                            self.enemy_object.y,
-                                            self.ENEMY_WITH * (7 / 27),
-                                            self.ENEMY_HEIGHT * (2 / 21),
-                                            [],
-                                            self.SCREEN, "stabilizer")
-
-                if bullets_pos.detect_collision(body) or bullets_pos.detect_collision(wings) or \
-                        bullets_pos.detect_collision(stabilizer):
+                if bullets_pos.detect_collision(self.enemy_object):
 
                     if e not in self.enemy_destroy:
                         self.explosions.append([self.enemy_object, 16])

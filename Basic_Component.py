@@ -8,8 +8,12 @@ class BasicComponent(Vector2):
         self._width = width
         self._image = [pygame.image.load(i) for i in image]
         self._screen = screen
+        self._name = name
 
         super().__init__(x, y)
+
+    def get_name(self):
+        return self._name
 
     def get_height(self):
         return self._height
@@ -17,7 +21,8 @@ class BasicComponent(Vector2):
     def get_width(self):
         return self._width
 
-    def detect_collision(self, second_object):
+    def rectangle_collision(self, second_object):
+
         bigger = (self._width * self._height) > (second_object.get_width() * second_object.get_height())
 
         if bigger:

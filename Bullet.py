@@ -1,21 +1,16 @@
-from Basic_Component import BasicComponent
-from Settings import BulletConstants
+from Fireball import Fireball
+from Settings import FireballConstants
 
 
-class Bullets(BulletConstants):
+class Bullets(FireballConstants):
     def __init__(self):
         self.bull_end = 0
 
         super().__init__()
 
     def shoot(self):
-        self.BULLETS.append(BasicComponent(self.PLAYER.x + (self.PLAYER.get_width() / 2 - self.BULLET_SIZE / 2),
-                                           self.PLAYER.y,
-                                           self.BULLET_SIZE,
-                                           self.BULLET_SIZE,
-                                           self.BULL_PIC_PATHS,
-                                           self.SCREEN, "fireball"
-                                           ))
+        self.BULLETS.append(Fireball(self.PLAYER.x + (self.PLAYER.get_width() / 2 - self.BULLET_SIZE / 2),
+                                     self.PLAYER.y))
 
     def tick(self):
 

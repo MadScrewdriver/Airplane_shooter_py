@@ -29,7 +29,7 @@ class GlobalConstants:
     PIX_FONT_PATH = os.path.join("Fonts", "Pixel_font.ttf")
 
     BOM_PIC_PATH = [os.path.join(BOM_PATH, "bomber.png")]
-    BULL_PIC_PATHS = [os.path.join(BULL_PATH, "bullet.png")]
+    Fire_PIC_PATHS = [os.path.join(BULL_PATH, "bullet.png")]
     ROC_PIC_PATH = [os.path.join(R_PATH, "rocket.png")]
     BACK_PIC_PATHS = [os.path.join(BACK_PATH, "background.png")]
     ENEMY_PIC_PATHS = [os.path.join(B_E_PATH, "straight.png")]
@@ -52,7 +52,7 @@ class GlobalConstants:
                             SCREEN_WITH / 3.90, SCREEN_WITH / 5.27, PLAYER_PIC_PATHS, SCREEN, "player")
 
 
-class BulletConstants(GlobalConstants):
+class FireballConstants(GlobalConstants):
     def __init__(self):
         self.BULLET_SPEED = -self.SCREEN_WITH / 80
 
@@ -78,5 +78,10 @@ class BackgroundConstants(GlobalConstants):
 
 
 class LevelsConstants(GlobalConstants):
+    def __init__(self):
+        pass
+
+
+class MasksConstants(GlobalConstants):
     def __init__(self):
         pass
