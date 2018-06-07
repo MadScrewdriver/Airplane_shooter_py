@@ -1,11 +1,11 @@
 import pygame
 import os
 from Basic_Component import BasicComponent
-from Settings import EnemiesConstants
+from Settings import MesserschmittConstants
 from Levels import Levels
 
 
-class Enemy(EnemiesConstants, Levels):
+class Enemy(MesserschmittConstants, Levels):
 
     def __init__(self):
         self.num_of_e = 0
@@ -20,7 +20,7 @@ class Enemy(EnemiesConstants, Levels):
     def move_enemy(self):
         for e in range(len(self.ENEMIES)):
             enemy_pos = self.ENEMIES[e]
-            enemy_pos.y += self.ENEMY_SPEED
+            enemy_pos.y += self.Messerschmitt_SPEED
 
             if enemy_pos.y > self.SCREEN_LENGTH:
                 self.enemy_destroy.append(e)
