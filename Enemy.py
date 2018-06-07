@@ -1,11 +1,11 @@
 import pygame
 import os
-from random import randint
 from Basic_Component import BasicComponent
-from settings import EnemiesConstants
+from Settings import EnemiesConstants
+from Levels import Levels
 
 
-class Enemy(EnemiesConstants):
+class Enemy(EnemiesConstants, Levels):
 
     def __init__(self):
         self.num_of_e = 0
@@ -13,6 +13,7 @@ class Enemy(EnemiesConstants):
         self.enemy_destroy = []
         self.bullets_destroy = []
         self.enemy_object = None
+        self.score = 0
 
         super().__init__()
 
@@ -21,24 +22,29 @@ class Enemy(EnemiesConstants):
             enemy_pos = self.ENEMIES[e]
             enemy_pos.y += self.ENEMY_SPEED
 
-            if enemy_pos.y == self.SCREEN_LENGTH:
+            if enemy_pos.y > self.SCREEN_LENGTH:
                 self.enemy_destroy.append(e)
 
     def tick(self):
         self.blast()
         self.move_enemy()
 
-    def add_enemies(self):
-        if self.num_of_e < 5:
-            for n in range(5 - self.num_of_e):
-                self.ENEMIES.append(BasicComponent(
-                    randint(int(self.MARGIN), int(self.SCREEN_WITH - (self.MARGIN + self.SCREEN_WITH / 3.90))),
-                    int(-self.ENEMY_HEIGHT),
-                    self.ENEMY_WITH,
-                    self.ENEMY_HEIGHT,
-                    self.ENEMY_PIC_PATHS, self.SCREEN))
+    def spawn_pos(self):
 
-                self.num_of_e += 1
+        if self.score < 30:
+            self.level_1()
+
+        elif self.score < 110:
+            self.level_2()
+
+        elif self.score < 100000:
+            self.level_3()
+
+    def add_enemies(self):
+        
+        if self.num_of_e == 0:
+            self.spawn_pos()
+            self.num_of_e = len(self.ENEMIES)
 
     def remove_enemies(self):
         a = 0
@@ -68,21 +74,21 @@ class Enemy(EnemiesConstants):
                                       self.ENEMY_WITH * (3 / 27),
                                       self.ENEMY_HEIGHT,
                                       [],
-                                      self.SCREEN)
+                                      self.SCREEN, "body")
 
                 wings = BasicComponent(self.enemy_object.x,
                                        self.enemy_object.y + ((8 / 21) * self.ENEMY_WITH),
                                        self.ENEMY_WITH,
                                        self.ENEMY_HEIGHT * (3 / 21),
                                        [],
-                                       self.SCREEN)
+                                       self.SCREEN, "wings")
 
                 stabilizer = BasicComponent(self.enemy_object.x + (10 / 27) * self.ENEMY_WITH,
                                             self.enemy_object.y,
                                             self.ENEMY_WITH * (7 / 27),
                                             self.ENEMY_HEIGHT * (2 / 21),
                                             [],
-                                            self.SCREEN)
+                                            self.SCREEN, "stabilizer")
 
                 if bullets_pos.detect_collision(body) or bullets_pos.detect_collision(wings) or \
                         bullets_pos.detect_collision(stabilizer):
@@ -113,7 +119,8 @@ class Enemy(EnemiesConstants):
             self.explosions.pop(i - c)
             c += 1
 
-    def draw(self):
+    def draw(self, score):
+        self.score = score
         self.add_enemies()
 
         for en in self.ENEMIES:

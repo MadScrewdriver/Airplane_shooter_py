@@ -1,8 +1,8 @@
 import pygame
-from settings import RocketConstants
+from Settings import PlayerConstants
 
 
-class Rocket(RocketConstants):
+class Player(PlayerConstants):
 
     def __init__(self):
         self.touch_r = False

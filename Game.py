@@ -1,11 +1,11 @@
 import pygame
 import sys
 import time
-from Player import Rocket
+from Player import Player
 from Bullet import Bullets
 from Enemy import Enemy
 from Background import Background
-from settings import GlobalConstants
+from Settings import GlobalConstants
 
 
 # Main class
@@ -25,11 +25,12 @@ class Game(GlobalConstants):
         print(self.SCREEN_WITH, self.SCREEN_LENGTH)
 
         # Initialization
-        self.player = Rocket()
+        self.player = Player()
         self.bullet = Bullets()
         self.enemy = Enemy()
         self.background = Background()
         self.time_start = time.time()
+        self.shout_time = time.time()
 
         # Main loop
         while True:
@@ -39,8 +40,11 @@ class Game(GlobalConstants):
                 if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                     sys.exit(0)
 
-                if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE and \
+                        time.time() - self.shout_time >= 0.5:
+
                     self.bullet.shoot()
+                    self.shout_time = time.time()
 
             # Ticking
             self.fps += 1
@@ -49,7 +53,7 @@ class Game(GlobalConstants):
                 self.tick()
                 self.delta -= 1 / self.max_tps
 
-            # Drawinga
+            # Drawing
             self.draw()
 
             if time.time() - self.time_start >= 1:
@@ -70,7 +74,7 @@ class Game(GlobalConstants):
         self.background.draw(self.score)
         self.bullet.draw()
         self.player.draw()
-        self.enemy.draw()
+        self.enemy.draw(self.score)
 
 
 if __name__ == '__main__':

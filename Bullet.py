@@ -1,5 +1,5 @@
 from Basic_Component import BasicComponent
-from settings import BulletConstants
+from Settings import BulletConstants
 
 
 class Bullets(BulletConstants):
@@ -14,7 +14,7 @@ class Bullets(BulletConstants):
                                            self.BULLET_SIZE,
                                            self.BULLET_SIZE,
                                            self.BULL_PIC_PATHS,
-                                           self.SCREEN
+                                           self.SCREEN, "fireball"
                                            ))
 
     def tick(self):

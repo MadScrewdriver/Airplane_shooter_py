@@ -3,7 +3,7 @@ from pygame.math import Vector2
 
 
 class BasicComponent(Vector2):
-    def __init__(self, x, y, width, height, image, screen):
+    def __init__(self, x, y, width, height, image, screen, name):
         self._height = height
         self._width = width
         self._image = [pygame.image.load(i) for i in image]

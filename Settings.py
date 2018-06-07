@@ -35,12 +35,15 @@ class GlobalConstants:
     MARGIN = int(get_monitors()[0].height * 0.025)
     SCREEN_LENGTH = int(get_monitors()[-1].height * 0.75)
     SCREEN_WITH = int(get_monitors()[-1].height * 0.5)
+    MIN_DISTANCE = int(SCREEN_WITH / 54)
+    ENEMY_WITH = int(SCREEN_WITH / 3.90)
+    ENEMY_HEIGHT = int(SCREEN_WITH / 5.27)
     SCREEN = pygame.display.set_mode((SCREEN_WITH, SCREEN_LENGTH))
     ENEMIES = []
     BULLETS = []
     BULLET_SIZE = int(SCREEN_WITH / 54)
     PLAYER = BasicComponent(SCREEN_WITH / 2 - (SCREEN_WITH / 3.90) / 2, SCREEN_LENGTH * (4 / 6),
-                            SCREEN_WITH / 3.90, SCREEN_WITH / 5.27, PLAYER_PIC_PATHS, SCREEN)
+                            SCREEN_WITH / 3.90, SCREEN_WITH / 5.27, PLAYER_PIC_PATHS, SCREEN, "player")
 
 
 class BulletConstants(GlobalConstants):
@@ -48,18 +51,21 @@ class BulletConstants(GlobalConstants):
         self.BULLET_SPEED = -self.SCREEN_WITH / 80
 
 
-class RocketConstants(GlobalConstants):
+class PlayerConstants(GlobalConstants):
     def __init__(self):
         self.SPEED = self.SCREEN_WITH / 120
 
 
 class EnemiesConstants(GlobalConstants):
     def __init__(self):
-        self.ENEMY_WITH = self.SCREEN_WITH / 3.90
-        self.ENEMY_HEIGHT = self.SCREEN_WITH / 5.27
-        self.ENEMY_SPEED = self.SCREEN_WITH / 180
+        self.ENEMY_SPEED = self.SCREEN_WITH / 150
 
 
 class BackgroundConstants(GlobalConstants):
     def __init__(self):
         self.BG_SPEED = self.SCREEN_WITH / 270
+
+
+class LevelsConstants(GlobalConstants):
+    def __init__(self):
+        pass

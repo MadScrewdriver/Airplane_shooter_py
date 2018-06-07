@@ -1,5 +1,5 @@
 import pygame
-from settings import BackgroundConstants
+from Settings import BackgroundConstants
 from Basic_Component import BasicComponent
 
 
@@ -9,10 +9,10 @@ class Background(BackgroundConstants):
         self.background_1 = BasicComponent(0, -self.SCREEN_LENGTH * 2, self.SCREEN_WITH,
                                            self.SCREEN_LENGTH * 3,
                                            self.BACK_PIC_PATHS,
-                                           self.SCREEN)
+                                           self.SCREEN, "background")
 
         self.background_2 = BasicComponent(0, 0, self.SCREEN_WITH, self.SCREEN_LENGTH * 3,
-                                           self.BACK_PIC_PATHS, self.SCREEN)
+                                           self.BACK_PIC_PATHS, self.SCREEN, "background")
         self.two = False
         self.score_font = pygame.font.Font(self.PIX_FONT_PATH, 45)
 
