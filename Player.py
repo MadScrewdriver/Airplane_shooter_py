@@ -4,7 +4,8 @@ from Settings import PlayerConstants
 
 class Player(PlayerConstants):
 
-    def __init__(self):
+    def __init__(self, player):
+        self.PLAYER = player
         self.touch_r = False
         self.touch_l = False
         self.touch_u = False
@@ -45,8 +46,9 @@ class Player(PlayerConstants):
         if self.down and not self.touch_d:
             self.PLAYER.y += self.SPEED
 
-    def draw(self):
-        self.update()
+    def draw(self, stop):
+        if not stop:
+            self.update()
 
         if self.left and not self.right:
             self.PLAYER.draw(1)

@@ -1,7 +1,6 @@
 import pygame
 import os
 from screeninfo import get_monitors
-from Basic_Component import BasicComponent
 
 
 class Score:
@@ -40,16 +39,17 @@ class GlobalConstants:
     SCREEN_LENGTH = int(get_monitors()[-1].height * 0.75)
     SCREEN_WITH = int(get_monitors()[-1].height * 0.5)
     MIN_DISTANCE = int(SCREEN_WITH / 54)
-    ENEMY_WITH = int(SCREEN_WITH / 3.90)
-    ENEMY_HEIGHT = int(SCREEN_WITH / 5.27)
+    SPITFIRE_WITH = int(SCREEN_WITH / 3.90)
+    SPITFIRE_HEIGHT = int(SCREEN_WITH / 5.27)
+    MESSERSCHMITT_WITH = int(SCREEN_WITH / 3.90)
+    MESSERSCHMIT_HEIGHT = int(SCREEN_WITH / 5.27)
     BOMBER_WITH = int(SCREEN_WITH / 3.65)
     BOMBER_HEIGHT = int(SCREEN_WITH / 4.61)
     SCREEN = pygame.display.set_mode((SCREEN_WITH, SCREEN_LENGTH))
     ENEMIES = []
     BULLETS = []
+    EXPLOSIONS = []
     BULLET_SIZE = int(SCREEN_WITH / 54)
-    PLAYER = BasicComponent(SCREEN_WITH / 2 - (SCREEN_WITH / 3.90) / 2, SCREEN_LENGTH * (4 / 6),
-                            SCREEN_WITH / 3.90, SCREEN_WITH / 5.27, PLAYER_PIC_PATHS, SCREEN, "player")
 
 
 class FireballConstants(GlobalConstants):
@@ -82,6 +82,6 @@ class LevelsConstants(GlobalConstants):
         pass
 
 
-class MasksConstants(GlobalConstants):
+class MaskConstants(GlobalConstants):
     def __init__(self):
         pass

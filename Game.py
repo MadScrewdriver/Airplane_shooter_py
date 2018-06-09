@@ -6,6 +6,7 @@ from Bullet import Bullets
 from Enemy import Enemy
 from Background import Background
 from Settings import GlobalConstants
+from Spitfire import Spitfire
 
 
 # Main class
@@ -22,12 +23,15 @@ class Game(GlobalConstants):
         pygame.display.set_caption("303 Polish Fighter Squadron     fps: " + str(self.fps))
         pygame.display.set_icon(self.title_icon)
         self.score = 0
+        self.pause = False
+        self.t = 0
         print(self.SCREEN_WITH, self.SCREEN_LENGTH)
 
         # Initialization
-        self.player = Player()
-        self.bullet = Bullets()
-        self.enemy = Enemy()
+        self.SPITFIRE = Spitfire(self.SCREEN_WITH / 2 - (self.SCREEN_WITH / 3.90) / 2, self.SCREEN_LENGTH * (4 / 6))
+        self.player = Player(self.SPITFIRE)
+        self.bullet = Bullets(self.SPITFIRE)
+        self.enemy = Enemy(self.SPITFIRE)
         self.background = Background()
         self.time_start = time.time()
         self.shout_time = time.time()
@@ -50,11 +54,24 @@ class Game(GlobalConstants):
             self.fps += 1
             self.delta += self.clock.tick() / 1000.0
             while self.delta > 1 / self.max_tps:
-                self.tick()
+                if not self.pause:
+                    self.tick()
                 self.delta -= 1 / self.max_tps
 
             # Drawing
-            self.draw()
+            if not self.pause:
+                self.draw()
+
+            else:
+                self.stop()
+                if time.time() - self.t >= 2:
+                    self.pause = False
+                    self.ENEMIES.clear()
+                    self.EXPLOSIONS.clear()
+                    self.BULLETS.clear()
+                    self.SPITFIRE.x = self.SCREEN_WITH / 2 - (self.SCREEN_WITH / 3.90) / 2
+                    self.SPITFIRE.y = self.SCREEN_LENGTH * (4 / 6)
+                    self.enemy.set_stop(False)
 
             if time.time() - self.time_start >= 1:
                 pygame.display.set_caption("303 Polish Fighter Squadron     fps: " + str(self.fps))
@@ -73,8 +90,23 @@ class Game(GlobalConstants):
     def draw(self):
         self.background.draw(self.score)
         self.bullet.draw()
-        self.player.draw()
+        self.player.draw(False)
+        self.pause = self.enemy.draw(self.score)
+
+        if self.pause:
+            self.set_t()
+
+    def set_t(self):
+        self.t = time.time()
+
+    def stop(self):
+        self.background.draw(self.score)
+        self.bullet.draw()
         self.enemy.draw(self.score)
+
+        if (0.25 < time.time() - self.t < 0.5) or (0.75 < time.time() - self.t < 1) or \
+                (1.25 < time.time() - self.t < 1.5) or (1.75 < time.time() - self.t < 2):
+            self.player.draw(True)
 
 
 if __name__ == '__main__':

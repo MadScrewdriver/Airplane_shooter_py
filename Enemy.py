@@ -6,13 +6,16 @@ from Levels import Levels
 
 class Enemy(MesserschmittConstants, Levels):
 
-    def __init__(self):
+    def __init__(self, player):
+        self.PLAYER = player
         self.num_of_e = 0
-        self.explosions = []
         self.enemy_destroy = []
         self.bullets_destroy = []
+        self.explosion_end = []
         self.enemy_object = None
         self.score = 0
+        self.live = 3
+        self.stop = False
 
         super().__init__()
 
@@ -71,45 +74,60 @@ class Enemy(MesserschmittConstants, Levels):
                 if bullets_pos.detect_collision(self.enemy_object):
 
                     if e not in self.enemy_destroy:
-                        self.explosions.append([self.enemy_object, 16])
+                        self.EXPLOSIONS.append([self.enemy_object, 16])
                         self.enemy_destroy.append(e)
                         if b_p not in self.bullets_destroy:
                             self.bullets_destroy.append(b_p)
 
                     score += 10
 
+            if self.PLAYER.detect_collision(self.enemy_object):
+                self.stop = True
+                self.enemy_destroy.clear()
+                self.bullets_destroy.clear()
+                self.explosion_end.clear()
+                self.num_of_e = 0
+
         self.remove_enemies()
         return score
 
     def blast(self):
-        explosion_end = []
+        self.explosion_end = []
 
-        for ex in range(len(self.explosions)):
-            if self.explosions[ex][1] == 1:
-                explosion_end.append(ex)
+        for ex in range(len(self.EXPLOSIONS)):
+            if self.EXPLOSIONS[ex][1] == 1:
+                self.explosion_end.append(ex)
 
             else:
-                self.explosions[ex][1] -= 1
+                self.EXPLOSIONS[ex][1] -= 1
 
         c = 0
-        for i in explosion_end:
-            self.explosions.pop(i - c)
+        for i in self.explosion_end:
+            self.EXPLOSIONS.pop(i - c)
             c += 1
+
+    def set_stop(self, v):
+        self.stop = v
 
     def draw(self, score):
         self.score = score
-        self.add_enemies()
+
+        if not self.stop:
+            self.add_enemies()
 
         for en in self.ENEMIES:
             en.draw(0)
 
-        for exp in self.explosions:
+        for exp in self.EXPLOSIONS:
             explosion_pic = pygame.image.load(os.path.join(self.EXPLO_PATH, str(exp[1]) + ".png"))
             self.SCREEN.blit(pygame.transform.scale(explosion_pic,
                                                     (int(self.PLAYER.get_width()),
                                                      int(self.PLAYER.get_height()))),
                              (int(exp[0].x),
                               int(exp[0].y)))
+
+        return self.stop
+
 
 
 

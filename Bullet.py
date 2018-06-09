@@ -3,7 +3,8 @@ from Settings import FireballConstants
 
 
 class Bullets(FireballConstants):
-    def __init__(self):
+    def __init__(self, player):
+        self.PLAYER = player
         self.bull_end = 0
 
         super().__init__()
