@@ -12,7 +12,7 @@ class Spitfire(BasicComponent, PlayerConstants):
                          self.PLAYER_PIC_PATHS, self.SCREEN, "Spitfire")
 
     def detect_collision(self, second_object):
-        print(self.x, self.y)
+
         body = Mask(self.x + ((12 / 27) * self.SPITFIRE_WITH),
                     self.y,
                     self.SPITFIRE_WITH * (3 / 27),

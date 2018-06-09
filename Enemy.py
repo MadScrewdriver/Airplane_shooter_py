@@ -116,13 +116,13 @@ class Enemy(MesserschmittConstants, Levels):
             self.add_enemies()
 
         for en in self.ENEMIES:
-            en.draw(0)
+            en.draw()
 
         for exp in self.EXPLOSIONS:
             explosion_pic = pygame.image.load(os.path.join(self.EXPLO_PATH, str(exp[1]) + ".png"))
             self.SCREEN.blit(pygame.transform.scale(explosion_pic,
-                                                    (int(self.PLAYER.get_width()),
-                                                     int(self.PLAYER.get_height()))),
+                                                    (int(exp[0].get_width()),
+                                                     int(exp[0].get_height()))),
                              (int(exp[0].x),
                               int(exp[0].y)))
 

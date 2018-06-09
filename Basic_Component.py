@@ -24,19 +24,9 @@ class BasicComponent(Vector2):
 
     def rectangle_collision(self, second_object):
 
-        bigger = (self._width * self._height) > (second_object.get_width() * second_object.get_height())
+        smaller = (self._width * self._height) < (second_object.get_width() * second_object.get_height())
 
-        if bigger:
-            x1 = second_object.x
-            y1 = second_object.y
-            w1 = second_object.get_width()
-            h1 = second_object.get_height()
-            x2 = self.x
-            y2 = self.y
-            h2 = self._height
-            w2 = self._width
-
-        else:
+        if smaller:
             x1 = self.x
             y1 = self.y
             w1 = self._height
@@ -45,6 +35,16 @@ class BasicComponent(Vector2):
             y2 = second_object.y
             w2 = second_object.get_width()
             h2 = second_object.get_height()
+
+        else:
+            x1 = second_object.x
+            y1 = second_object.y
+            w1 = second_object.get_width()
+            h1 = second_object.get_height()
+            x2 = self.x
+            y2 = self.y
+            h2 = self._height
+            w2 = self._width
 
         if x2 + w2 >= x1 >= x2 and y2 + h2 >= y1 >= y2:
             return True

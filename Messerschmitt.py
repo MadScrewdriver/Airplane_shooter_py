@@ -21,7 +21,7 @@ class Messerschmitt(BasicComponent, MesserschmittConstants):
         wings = Mask(self.x,
                      self.y + ((10 / 21) * self.MESSERSCHMITT_HEIGHT),
                      self.MESSERSCHMITT_WITH,
-                     self.MESSERSCHMITT_HEIGHT * (3 / 21))
+                     self.MESSERSCHMITT_HEIGHT * (4 / 21))
 
         stabilizer = Mask(self.x + (10 / 27) * self.MESSERSCHMITT_WITH,
                           self.y,
