@@ -38,6 +38,7 @@ class Game(GlobalConstants):
 
         # Main loop
         while True:
+            print(self.ENEMIES)
             self.SCREEN.fill((0, 0, 0))
 
             for event in pygame.event.get():
@@ -84,13 +85,16 @@ class Game(GlobalConstants):
         self.background.tick()
         self.bullet.tick()
         self.player.tick()
-        self.enemy.tick()
+        self.pause = self.enemy.tick()
         self.score = self.enemy.touch(self.score)
+
+        if self.pause:
+            self.set_t()
 
     def draw(self):
         self.background.draw(self.score)
         self.bullet.draw()
-        self.player.draw(False)
+        self.player.draw()
         self.pause = self.enemy.draw(self.score)
 
         if self.pause:
@@ -102,11 +106,18 @@ class Game(GlobalConstants):
     def stop(self):
         self.background.draw(self.score)
         self.bullet.draw()
+        self.player.draw(True)
         self.enemy.draw(self.score)
+        for en in self.ENEMIES:
+            if self.SPITFIRE.detect_collision(en) or (en.y >= self.SCREEN_LENGTH - en.get_height() -
+               self.MARGIN * 3):
 
-        if (0.25 < time.time() - self.t < 0.5) or (0.75 < time.time() - self.t < 1) or \
-                (1.25 < time.time() - self.t < 1.5) or (1.75 < time.time() - self.t < 2):
-            self.player.draw(True)
+                if (0.25 < time.time() - self.t < 0.5) or (0.75 < time.time() - self.t < 1) or \
+                        (1.25 < time.time() - self.t < 1.5) or (1.75 < time.time() - self.t < 2):
+                    en.draw()
+
+            else:
+                en.draw()
 
 
 if __name__ == '__main__':

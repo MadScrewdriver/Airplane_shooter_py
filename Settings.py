@@ -50,26 +50,14 @@ class GlobalConstants:
     BULLETS = []
     EXPLOSIONS = []
     BULLET_SIZE = int(SCREEN_WITH / 54)
-
-
-class FireballConstants(GlobalConstants):
-    def __init__(self):
-        self.BULLET_SPEED = -self.SCREEN_WITH / 80
+    MESSERSCHMITT_SPEED = SCREEN_WITH / 150
+    BULLET_SPEED = SCREEN_WITH / 80
+    BOMBER_SPEED = SCREEN_WITH / 150
 
 
 class PlayerConstants(GlobalConstants):
     def __init__(self):
         self.SPEED = self.SCREEN_WITH / 120
-
-
-class MesserschmittConstants(GlobalConstants):
-    def __init__(self):
-        self.Messerschmitt_SPEED = self.SCREEN_WITH / 150
-
-
-class BomberConstants(GlobalConstants):
-    def __init__(self):
-        self.BOMBER_SPEED = self.SCREEN_WITH / 150
 
 
 class BackgroundConstants(GlobalConstants):

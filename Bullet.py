@@ -1,8 +1,8 @@
 from Fireball import Fireball
-from Settings import FireballConstants
+from Settings import GlobalConstants
 
 
-class Bullets(FireballConstants):
+class Bullets(GlobalConstants):
     def __init__(self, player):
         self.PLAYER = player
         self.bull_end = 0
@@ -17,7 +17,7 @@ class Bullets(FireballConstants):
 
         self.bull_end = 0
         for bull_pos in range(len(self.BULLETS)):
-            self.BULLETS[bull_pos].y += self.BULLET_SPEED
+            self.BULLETS[bull_pos].move()
 
             if self.BULLETS[bull_pos].y < self.MARGIN / 2:
                 self.bull_end += 1

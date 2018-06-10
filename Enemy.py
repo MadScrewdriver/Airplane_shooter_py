@@ -1,12 +1,12 @@
 import pygame
 import os
-from Settings import MesserschmittConstants
 from Levels import Levels
 
 
-class Enemy(MesserschmittConstants, Levels):
+class Enemy(Levels):
 
     def __init__(self, player):
+        super().__init__()
         self.PLAYER = player
         self.num_of_e = 0
         self.enemy_destroy = []
@@ -17,19 +17,25 @@ class Enemy(MesserschmittConstants, Levels):
         self.live = 3
         self.stop = False
 
-        super().__init__()
-
     def move_enemy(self):
         for e in range(len(self.ENEMIES)):
             enemy_pos = self.ENEMIES[e]
-            enemy_pos.y += self.Messerschmitt_SPEED
 
-            if enemy_pos.y > self.SCREEN_LENGTH:
-                self.enemy_destroy.append(e)
+            if enemy_pos.y >= self.SCREEN_LENGTH - enemy_pos.get_height() - self.MARGIN * 2:
+                self.enemy_destroy.clear()
+                self.bullets_destroy.clear()
+                self.explosion_end.clear()
+                self.num_of_e = 0
+                self.set_stop(True)
+                return True
+
+            enemy_pos.move()
+
+        return False
 
     def tick(self):
         self.blast()
-        self.move_enemy()
+        return self.move_enemy()
 
     def spawn_pos(self):
 
@@ -114,9 +120,8 @@ class Enemy(MesserschmittConstants, Levels):
 
         if not self.stop:
             self.add_enemies()
-
-        for en in self.ENEMIES:
-            en.draw()
+            for en in self.ENEMIES:
+                en.draw()
 
         for exp in self.EXPLOSIONS:
             explosion_pic = pygame.image.load(os.path.join(self.EXPLO_PATH, str(exp[1]) + ".png"))

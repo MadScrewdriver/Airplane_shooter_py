@@ -6,20 +6,19 @@ from Basic_Component import BasicComponent
 class Background(BackgroundConstants):
 
     def __init__(self):
+        super().__init__()
         self.background_1 = BasicComponent(0, -self.SCREEN_LENGTH * 2, self.SCREEN_WITH,
                                            self.SCREEN_LENGTH * 3,
                                            self.BACK_PIC_PATHS,
-                                           self.SCREEN, "background")
+                                           self.SCREEN, "background", 0, self.BG_SPEED)
 
         self.background_2 = BasicComponent(0, 0, self.SCREEN_WITH, self.SCREEN_LENGTH * 3,
-                                           self.BACK_PIC_PATHS, self.SCREEN, "background")
+                                           self.BACK_PIC_PATHS, self.SCREEN, "background", 0, self.BG_SPEED)
         self.two = False
         self.score_font = pygame.font.Font(self.PIX_FONT_PATH, 45)
 
-        super().__init__()
-
     def tick(self):
-        self.background_1.y += self.BG_SPEED
+        self.background_1.move()
 
         if self.SCREEN_LENGTH >= self.background_1.y >= 0:
             self.two = True

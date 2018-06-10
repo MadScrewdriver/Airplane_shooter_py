@@ -1,16 +1,15 @@
 from Mask import Mask
 from Basic_Component import BasicComponent
-from Settings import MesserschmittConstants
+from Settings import GlobalConstants
 
 
-class Messerschmitt(BasicComponent, MesserschmittConstants):
+class Messerschmitt(BasicComponent, GlobalConstants):
 
     def __init__(self, x, y):
         self.x = x
         self.y = y
-        super(MesserschmittConstants).__init__()
         super().__init__(self.x, self.y, self.MESSERSCHMITT_WITH, self.MESSERSCHMITT_HEIGHT,
-                         self.ENEMY_PIC_PATHS, self.SCREEN, "Messerschmitt")
+                         self.ENEMY_PIC_PATHS, self.SCREEN, "Messerschmitt", 0, self.MESSERSCHMITT_SPEED)
 
     def detect_collision(self, second_object):
         body = Mask(self.x + ((12 / 27) * self.MESSERSCHMITT_WITH),

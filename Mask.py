@@ -10,7 +10,7 @@ class Mask(BasicComponent, MaskConstants):
         self.height = height
         super(MaskConstants).__init__()
         super().__init__(self.x, self.y, self.width, self.height,
-                         [], self.SCREEN, "Mask")
+                         [], self.SCREEN, "Mask", 0, 0)
 
     def detect_collision(self, second_object):
 

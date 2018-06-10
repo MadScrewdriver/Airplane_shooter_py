@@ -30,8 +30,7 @@ class Player(PlayerConstants):
         self.touch_l = self.PLAYER.x <= self.MARGIN / 2
         self.touch_r = self.PLAYER.x + self.PLAYER.get_width() >= self.SCREEN_WITH - (self.MARGIN / 2)
         self.touch_u = self.PLAYER.y <= self.SCREEN_LENGTH * (1 / 2)
-        self.touch_d = self.PLAYER.y >= self.SCREEN_LENGTH - self.MARGIN - self.PLAYER.get_height() - \
-                       self.SCREEN_LENGTH * 0.05
+        self.touch_d = self.PLAYER.y >= self.SCREEN_LENGTH - self.PLAYER.get_height() - self.MARGIN * 2
 
         # Input
         if self.right and not self.touch_r:
@@ -46,7 +45,7 @@ class Player(PlayerConstants):
         if self.down and not self.touch_d:
             self.PLAYER.y += self.SPEED
 
-    def draw(self, stop):
+    def draw(self, stop=False):
         if not stop:
             self.update()
 

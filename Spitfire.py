@@ -9,7 +9,7 @@ class Spitfire(BasicComponent, PlayerConstants):
         self.y = y
         super(PlayerConstants).__init__()
         super().__init__(self.x, self.y, self.SPITFIRE_WITH, self.SPITFIRE_HEIGHT,
-                         self.PLAYER_PIC_PATHS, self.SCREEN, "Spitfire")
+                         self.PLAYER_PIC_PATHS, self.SCREEN, "Spitfire", 0, 0)
 
     def detect_collision(self, second_object):
 

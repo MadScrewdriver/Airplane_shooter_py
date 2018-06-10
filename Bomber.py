@@ -1,15 +1,14 @@
 from Basic_Component import BasicComponent
-from Settings import BomberConstants
+from Settings import GlobalConstants
 from Mask import Mask
 
 
-class Bomber(BasicComponent, BomberConstants):
+class Bomber(BasicComponent, GlobalConstants):
     def __init__(self, x, y):
         self.x = x
         self.y = y
-        super(BomberConstants).__init__()
         super().__init__(self.x, self.y, self.BOMBER_WITH, self.BOMBER_HEIGHT,
-                         self.BOM_PIC_PATH, self.SCREEN, "Bomber")
+                         self.BOM_PIC_PATH, self.SCREEN, "Bomber", 0, self.BOMBER_SPEED)
 
     def detect_collision(self, second_object):
         body = Mask(self.x + ((13 / 29) * self.BOMBER_WITH),

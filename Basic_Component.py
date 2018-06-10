@@ -3,12 +3,14 @@ from pygame.math import Vector2
 
 
 class BasicComponent(Vector2):
-    def __init__(self, x, y, width, height, image, screen, name):
+    def __init__(self, x, y, width, height, image, screen, name, move_x, move_y):
         self._height = height
         self._width = width
         self._image = [pygame.image.load(i) for i in image]
         self._screen = screen
         self._name = name
+        self._move_x = move_x
+        self._move_y = move_y
 
         super().__init__(x, y)
 
@@ -21,6 +23,10 @@ class BasicComponent(Vector2):
 
     def get_width(self):
         return self._width
+
+    def move(self):
+        self.x += self._move_x
+        self.y += self._move_y
 
     def rectangle_collision(self, second_object):
 
