@@ -20,6 +20,7 @@ class GlobalConstants:
     B_A_PATH = os.path.join("Pictures", "Player", "BasicAirplane")
     T_I_PATH = os.path.join("Pictures", "TitleIcon", "title_icon.png")
     BULL_PATH = os.path.join("Pictures", "Bullets", "Fireball")
+    R_BULL_PATH = os.path.join("Pictures", "Bullets", "Red_fireball")
     BACK_PATH = os.path.join("Pictures", "Background")
     B_E_PATH = os.path.join("Pictures", "Enemy", "BasicEnemy")
     R_PATH = os.path.join("Pictures", "Enemy", "Rocket")
@@ -27,6 +28,7 @@ class GlobalConstants:
     EXPLO_PATH = os.path.join("Pictures", "Explosion")
     PIX_FONT_PATH = os.path.join("Fonts", "Pixel_font.ttf")
 
+    R_BULL_PIC_PATHS = [os.path.join(R_BULL_PATH, "red_fireball.png")]
     BOM_PIC_PATH = [os.path.join(BOM_PATH, "bomber.png")]
     Fire_PIC_PATHS = [os.path.join(BULL_PATH, "bullet.png")]
     ROC_PIC_PATH = [os.path.join(R_PATH, "rocket.png")]

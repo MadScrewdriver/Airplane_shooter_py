@@ -76,16 +76,24 @@ class Enemy(Levels):
             self.enemy_object.draw(0)
             for b_p in range(len(self.BULLETS)):
                 bullets_pos = self.BULLETS[b_p]
+                if bullets_pos.get_name() == "Fireball":
+                    if bullets_pos.detect_collision(self.enemy_object):
 
-                if bullets_pos.detect_collision(self.enemy_object):
+                        if e not in self.enemy_destroy:
+                            self.EXPLOSIONS.append([self.enemy_object, 16])
+                            self.enemy_destroy.append(e)
+                            if b_p not in self.bullets_destroy:
+                                self.bullets_destroy.append(b_p)
 
-                    if e not in self.enemy_destroy:
-                        self.EXPLOSIONS.append([self.enemy_object, 16])
-                        self.enemy_destroy.append(e)
-                        if b_p not in self.bullets_destroy:
-                            self.bullets_destroy.append(b_p)
+                        score += 10
 
-                    score += 10
+                if bullets_pos.get_name() == "Red_fireball":
+                    if self.PLAYER.detect_collision(bullets_pos):
+                        self.stop = True
+                        self.enemy_destroy.clear()
+                        self.bullets_destroy.clear()
+                        self.explosion_end.clear()
+                        self.num_of_e = 0
 
             if self.PLAYER.detect_collision(self.enemy_object):
                 self.stop = True
@@ -93,6 +101,9 @@ class Enemy(Levels):
                 self.bullets_destroy.clear()
                 self.explosion_end.clear()
                 self.num_of_e = 0
+
+            if self.enemy_object.y >= (3/4) * self.SPITFIRE_HEIGHT:
+                self.enemy_object.shoot()
 
         self.remove_enemies()
         return score

@@ -14,7 +14,6 @@ class BasicComponent(Vector2):
 
         super().__init__(x, y)
 
-    @property
     def get_name(self):
         return self._name
 
