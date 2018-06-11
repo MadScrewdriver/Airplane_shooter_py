@@ -6,7 +6,7 @@ from Basic_Component import BasicComponent
 
 class Background(BackgroundConstants):
 
-    def __init__(self):
+    def __init__(self, l=3):
         super().__init__()
         self.background_1 = BasicComponent(0, -self.SCREEN_LENGTH * 2, self.SCREEN_WITH,
                                            self.SCREEN_LENGTH * 3,
@@ -16,14 +16,9 @@ class Background(BackgroundConstants):
         self.background_2 = BasicComponent(0, 0, self.SCREEN_WITH, self.SCREEN_LENGTH * 3,
                                            self.BACK_PIC_PATHS, self.SCREEN, "background", 0, self.BG_SPEED)
 
-        self.heart_1 = Heart(self.SCREEN_WITH - self.SCREEN_WITH * 0.02 - self.HEART_WITH,
-                             self.SCREEN_LENGTH * 0.94)
-
-        self.heart_2 = Heart(self.SCREEN_WITH - self.SCREEN_WITH * 0.04 - self.HEART_WITH * 2,
-                             self.SCREEN_LENGTH * 0.94)
-
-        self.heart_3 = Heart(self.SCREEN_WITH - self.SCREEN_WITH * 0.06 - self.HEART_WITH * 3,
-                             self.SCREEN_LENGTH * 0.94)
+        for h in range(1, l + 1):
+            self.LIVES.append(Heart(self.SCREEN_WITH - (self.SCREEN_WITH * (0.02 * h)) - (self.HEART_WITH * h),
+                                    self.SCREEN_LENGTH * 0.94))
 
         self.two = False
         self.score_font = pygame.font.Font(self.PIX_FONT_PATH, 45)
@@ -50,13 +45,15 @@ class Background(BackgroundConstants):
         self.SCREEN.blit(score_test, (self.SCREEN_WITH * 0.02, self.SCREEN_LENGTH * 0.94))
 
     def draw_lives(self, lives=3, stop=False):
-        if (lives == 1 and not stop) or lives > 1:
-            self.heart_1.draw()
+        if lives > len(self.LIVES):
+            for add in range(1, lives - len(self.LIVES) + 1):
+                self.LIVES.append(Heart(self.SCREEN_WITH - (self.SCREEN_WITH * (0.02 * len(self.LIVES))) -
+                                        (self.HEART_WITH * len(self.LIVES)), self.SCREEN_LENGTH * 0.94))
 
-        if (lives == 2 and not stop) or lives > 2:
-            self.heart_2.draw()
+        for l in range(1, len(self.LIVES) + 1):
+            live = self.LIVES[l - 1]
+            if (lives == l and not stop) or lives > l:
+                live.draw()
 
-        if (lives == 3 and not stop) or lives > 3:
-            self.heart_3.draw()
 
 

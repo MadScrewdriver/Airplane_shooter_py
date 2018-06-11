@@ -45,6 +45,9 @@ class Game(GlobalConstants):
                 if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                     sys.exit(0)
 
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_l:
+                    self.lives = 8
+
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE and \
                         time.time() - self.shout_time >= 0.5:
 

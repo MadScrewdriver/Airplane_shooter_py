@@ -65,14 +65,16 @@ class Enemy(Levels):
             self.BULLETS.pop(i - b)
             b += 1
 
-        self.enemy_destroy = []
-        self.bullets_destroy = []
+        self.enemy_destroy.clear()
+        self.bullets_destroy.clear()
 
     def touch(self, score):
 
         for e in range(len(self.ENEMIES)):
             self.enemy_object = self.ENEMIES[e]
             self.enemy_object.draw(0)
+
+            # collision bull with enemy and bull with bull
             for b_p in range(len(self.BULLETS)):
                 bullets_pos = self.BULLETS[b_p]
                 if bullets_pos.get_name() == "Fireball":
@@ -98,10 +100,11 @@ class Enemy(Levels):
                 if bullets_pos.get_name() == "Red_fireball":
                     if self.PLAYER.detect_collision(bullets_pos):
                         self.stop = True
-                        self.enemy_destroy.clear()
                         self.bullets_destroy.clear()
                         self.explosion_end.clear()
                         self.num_of_e = 0
+
+            # collision with player
 
             if self.PLAYER.detect_collision(self.enemy_object):
 
@@ -109,7 +112,6 @@ class Enemy(Levels):
                     self.EXPLOSIONS.remove([self.enemy_object, 16])
 
                 self.stop = True
-                self.enemy_destroy.clear()
                 self.bullets_destroy.clear()
                 self.explosion_end.clear()
                 self.num_of_e = 0
