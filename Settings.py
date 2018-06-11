@@ -49,8 +49,8 @@ class GlobalConstants:
     MESSERSCHMITT_HEIGHT = int(SCREEN_WITH / 5.27)
     BOMBER_WITH = int(SCREEN_WITH / 3.65)
     BOMBER_HEIGHT = int(SCREEN_WITH / 4.61)
-    HEART_WITH = 44
-    HEART_HEIGHT = 40
+    HEART_WITH = int(SCREEN_WITH / 12.27)
+    HEART_HEIGHT = int(SCREEN_WITH / 13.5)
     SCREEN = pygame.display.set_mode((SCREEN_WITH, SCREEN_LENGTH))
     ENEMIES = []
     BULLETS = []
