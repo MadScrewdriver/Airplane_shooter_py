@@ -19,9 +19,9 @@ class Bullets(GlobalConstants):
         for bull_pos in range(len(self.BULLETS)):
             self.BULLETS[bull_pos].move()
 
-            if (self.BULLETS[bull_pos].y < self.MARGIN / 2 and self.BULLETS[bull_pos].get_name() == "Fireball") or \
+            if (self.BULLETS[bull_pos].y < self.MARGIN * (1/2) and self.BULLETS[bull_pos].get_name() == "Fireball") or \
                     (self.BULLETS[bull_pos].get_name() == "Red_fireball" and self.BULLETS[bull_pos].y >=
-                     self.SCREEN_LENGTH - self.MARGIN):
+                     self.SCREEN_LENGTH - self.MARGIN * 3):
                 self.bull_end.append(bull_pos)
 
         j = 0

@@ -27,7 +27,9 @@ class GlobalConstants:
     BOM_PATH = os.path.join("Pictures", "Enemy", "Bomber")
     EXPLO_PATH = os.path.join("Pictures", "Explosion")
     PIX_FONT_PATH = os.path.join("Fonts", "Pixel_font.ttf")
+    HEART_PATH = os.path.join("Pictures", "Heart")
 
+    HEART_PIC_PATH = [os.path.join(HEART_PATH, "heart.png")]
     R_BULL_PIC_PATHS = [os.path.join(R_BULL_PATH, "red_fireball.png")]
     BOM_PIC_PATH = [os.path.join(BOM_PATH, "bomber.png")]
     Fire_PIC_PATHS = [os.path.join(BULL_PATH, "bullet.png")]
@@ -47,10 +49,13 @@ class GlobalConstants:
     MESSERSCHMITT_HEIGHT = int(SCREEN_WITH / 5.27)
     BOMBER_WITH = int(SCREEN_WITH / 3.65)
     BOMBER_HEIGHT = int(SCREEN_WITH / 4.61)
+    HEART_WITH = 44
+    HEART_HEIGHT = 40
     SCREEN = pygame.display.set_mode((SCREEN_WITH, SCREEN_LENGTH))
     ENEMIES = []
     BULLETS = []
     EXPLOSIONS = []
+    LIVES = []
     BULLET_SIZE = int(SCREEN_WITH / 54)
     MESSERSCHMITT_SPEED = SCREEN_WITH / 150
     BULLET_SPEED = SCREEN_WITH / 80

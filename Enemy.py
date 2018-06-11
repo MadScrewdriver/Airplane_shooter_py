@@ -14,14 +14,13 @@ class Enemy(Levels):
         self.explosion_end = []
         self.enemy_object = None
         self.score = 0
-        self.live = 3
         self.stop = False
 
     def move_enemy(self):
         for e in range(len(self.ENEMIES)):
             enemy_pos = self.ENEMIES[e]
 
-            if enemy_pos.y >= self.SCREEN_LENGTH - enemy_pos.get_height() - self.MARGIN * 2:
+            if enemy_pos.y >= self.SCREEN_LENGTH - enemy_pos.get_height() - self.MARGIN * 3:
                 self.enemy_destroy.clear()
                 self.bullets_destroy.clear()
                 self.explosion_end.clear()
@@ -90,15 +89,11 @@ class Enemy(Levels):
                     for bul in range(len(self.BULLETS)):
                         b = self.BULLETS[bul]
                         if b.get_name() == "Red_fireball" and bullets_pos.rectangle_collision(b):
-                            print("c")
-                            if bul not in self.bullets_destroy:
+                            if bul not in self.bullets_destroy and b_p not in self.bullets_destroy:
                                 self.bullets_destroy.append(bul)
-
-                            if b_p not in self.bullets_destroy:
+                                self.EXPLOSIONS.append([b, 16])
+                                self.EXPLOSIONS.append([bullets_pos, 16])
                                 self.bullets_destroy.append(b_p)
-
-                            self.EXPLOSIONS.append([b, 16])
-                            self.EXPLOSIONS.append([bullets_pos, 16])
 
                 if bullets_pos.get_name() == "Red_fireball":
                     if self.PLAYER.detect_collision(bullets_pos):
@@ -109,6 +104,10 @@ class Enemy(Levels):
                         self.num_of_e = 0
 
             if self.PLAYER.detect_collision(self.enemy_object):
+
+                if [self.enemy_object, 16] in self.EXPLOSIONS:
+                    self.EXPLOSIONS.remove([self.enemy_object, 16])
+
                 self.stop = True
                 self.enemy_destroy.clear()
                 self.bullets_destroy.clear()

@@ -25,6 +25,7 @@ class Game(GlobalConstants):
         self.score = 0
         self.pause = False
         self.t = 0
+        self.lives = 3
         print(self.SCREEN_WITH, self.SCREEN_LENGTH)
 
         # Initialization
@@ -65,6 +66,7 @@ class Game(GlobalConstants):
             else:
                 self.stop()
                 if time.time() - self.t >= 2:
+                    self.lives -= 1
                     self.pause = False
                     self.ENEMIES.clear()
                     self.EXPLOSIONS.clear()
@@ -72,6 +74,10 @@ class Game(GlobalConstants):
                     self.SPITFIRE.x = self.SCREEN_WITH / 2 - (self.SCREEN_WITH / 3.90) / 2
                     self.SPITFIRE.y = self.SCREEN_LENGTH * (4 / 6)
                     self.enemy.set_stop(False)
+
+                    if self.lives == 0:
+                        self.lives = 3
+                        self.score = 0
 
             if time.time() - self.time_start >= 1:
                 pygame.display.set_caption("303 Polish Fighter Squadron     fps: " + str(self.fps))
@@ -92,6 +98,7 @@ class Game(GlobalConstants):
 
     def draw(self):
         self.background.draw(self.score)
+        self.background.draw_lives(self.lives)
         self.bullet.draw()
         self.player.draw()
         self.pause = self.enemy.draw(self.score)
@@ -106,6 +113,13 @@ class Game(GlobalConstants):
         self.background.draw(self.score)
         self.bullet.draw()
         self.enemy.draw(self.score)
+
+        if (0.25 < time.time() - self.t < 0.5) or (0.75 < time.time() - self.t < 1) or \
+                (1.25 < time.time() - self.t < 1.5) or (1.75 < time.time() - self.t < 2):
+            self.background.draw_lives(self.lives)
+
+        else:
+            self.background.draw_lives(self.lives, True)
 
         t = True
         for bull in self.BULLETS:

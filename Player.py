@@ -30,7 +30,7 @@ class Player(PlayerConstants):
         self.touch_l = self.PLAYER.x <= self.MARGIN / 2
         self.touch_r = self.PLAYER.x + self.PLAYER.get_width() >= self.SCREEN_WITH - (self.MARGIN / 2)
         self.touch_u = self.PLAYER.y <= self.SCREEN_LENGTH * (1 / 2)
-        self.touch_d = self.PLAYER.y >= self.SCREEN_LENGTH - self.PLAYER.get_height() - self.MARGIN * 2
+        self.touch_d = self.PLAYER.y >= self.SCREEN_LENGTH - self.PLAYER.get_height() - self.MARGIN * 3
 
         # Input
         if self.right and not self.touch_r:
