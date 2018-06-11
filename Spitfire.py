@@ -18,9 +18,9 @@ class Spitfire(BasicComponent, PlayerConstants):
                     self.SPITFIRE_WITH * (3 / 27),
                     self.SPITFIRE_HEIGHT)
 
-        wings = Mask(self.x,
+        wings = Mask(self.x + ((1 / 27) * self.SPITFIRE_WITH),
                      self.y + ((8 / 21) * self.SPITFIRE_HEIGHT),
-                     self.SPITFIRE_WITH,
+                     self.SPITFIRE_WITH - ((2 / 27) * self.SPITFIRE_WITH),
                      self.SPITFIRE_HEIGHT * (3 / 21))
 
         stabilizer = Mask(self.x + (10 / 27) * self.SPITFIRE_WITH,

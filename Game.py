@@ -38,7 +38,6 @@ class Game(GlobalConstants):
 
         # Main loop
         while True:
-            print(self.ENEMIES)
             self.SCREEN.fill((0, 0, 0))
 
             for event in pygame.event.get():
@@ -106,8 +105,20 @@ class Game(GlobalConstants):
     def stop(self):
         self.background.draw(self.score)
         self.bullet.draw()
-        self.player.draw(True)
         self.enemy.draw(self.score)
+
+        t = True
+        for bull in self.BULLETS:
+
+            if self.SPITFIRE.detect_collision(bull) and bull.get_name() == "Red_fireball":
+                if (0.25 < time.time() - self.t < 0.5) or (0.75 < time.time() - self.t < 1) or \
+                        (1.25 < time.time() - self.t < 1.5) or (1.75 < time.time() - self.t < 2):
+                    self.player.draw(True)
+                t = False
+
+        if t:
+            self.player.draw(True)
+
         for en in self.ENEMIES:
             if self.SPITFIRE.detect_collision(en) or (en.y >= self.SCREEN_LENGTH - en.get_height() -
                self.MARGIN * 3):

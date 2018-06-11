@@ -87,6 +87,19 @@ class Enemy(Levels):
 
                         score += 10
 
+                    for bul in range(len(self.BULLETS)):
+                        b = self.BULLETS[bul]
+                        if b.get_name() == "Red_fireball" and bullets_pos.rectangle_collision(b):
+                            print("c")
+                            if bul not in self.bullets_destroy:
+                                self.bullets_destroy.append(bul)
+
+                            if b_p not in self.bullets_destroy:
+                                self.bullets_destroy.append(b_p)
+
+                            self.EXPLOSIONS.append([b, 16])
+                            self.EXPLOSIONS.append([bullets_pos, 16])
+
                 if bullets_pos.get_name() == "Red_fireball":
                     if self.PLAYER.detect_collision(bullets_pos):
                         self.stop = True
@@ -129,11 +142,6 @@ class Enemy(Levels):
     def draw(self, score):
         self.score = score
 
-        if not self.stop:
-            self.add_enemies()
-            for en in self.ENEMIES:
-                en.draw()
-
         for exp in self.EXPLOSIONS:
             explosion_pic = pygame.image.load(os.path.join(self.EXPLO_PATH, str(exp[1]) + ".png"))
             self.SCREEN.blit(pygame.transform.scale(explosion_pic,
@@ -141,6 +149,11 @@ class Enemy(Levels):
                                                      int(exp[0].get_height()))),
                              (int(exp[0].x),
                               int(exp[0].y)))
+
+        if not self.stop:
+            self.add_enemies()
+            for en in self.ENEMIES:
+                en.draw()
 
         return self.stop
 
