@@ -91,6 +91,7 @@ class Game(GlobalConstants):
                     if self.lives == 0 or self.houses == 0:
                         self.lives = 3
                         self.houses = 3
+                        self.score = 0
 
             if time.time() - self.time_start >= 1:
                 pygame.display.set_caption("303 Polish Fighter Squadron     fps: " + str(self.fps))
