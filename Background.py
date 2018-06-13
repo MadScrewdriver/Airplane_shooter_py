@@ -8,16 +8,16 @@ class Background(BackgroundConstants):
 
     def __init__(self, l=3):
         super().__init__()
-        self.background_1 = BasicComponent(0, -self.SCREEN_LENGTH * 2, self.SCREEN_WITH,
+        self.background_1 = BasicComponent(0, -self.SCREEN_LENGTH * 2, self.SCREEN_WIDTH,
                                            self.SCREEN_LENGTH * 3,
                                            self.BACK_PIC_PATHS,
                                            self.SCREEN, "background", 0, self.BG_SPEED)
 
-        self.background_2 = BasicComponent(0, 0, self.SCREEN_WITH, self.SCREEN_LENGTH * 3,
+        self.background_2 = BasicComponent(0, 0, self.SCREEN_WIDTH, self.SCREEN_LENGTH * 3,
                                            self.BACK_PIC_PATHS, self.SCREEN, "background", 0, self.BG_SPEED)
 
         for h in range(1, l + 1):
-            self.LIVES.append(Heart(self.SCREEN_WITH - (self.SCREEN_WITH * (0.02 * h)) - (self.HEART_WITH * h),
+            self.LIVES.append(Heart(self.SCREEN_WIDTH - (self.SCREEN_WIDTH * (0.02 * h)) - (self.HEART_WIDTH * h),
                                     self.SCREEN_LENGTH * 0.94))
 
         self.two = False
@@ -42,13 +42,13 @@ class Background(BackgroundConstants):
         self.background_1.draw(0)
 
         score_test = self.score_font.render(str(score), 1, (255, 255, 255))
-        self.SCREEN.blit(score_test, (self.SCREEN_WITH * 0.02, self.SCREEN_LENGTH * 0.94))
+        self.SCREEN.blit(score_test, (self.SCREEN_WIDTH * 0.02, self.SCREEN_LENGTH * 0.94))
 
     def draw_lives(self, lives=3, stop=False):
         if lives > len(self.LIVES):
             for add in range(1, lives - len(self.LIVES) + 1):
-                self.LIVES.append(Heart(self.SCREEN_WITH - (self.SCREEN_WITH * (0.02 * len(self.LIVES))) -
-                                        (self.HEART_WITH * len(self.LIVES)), self.SCREEN_LENGTH * 0.94))
+                self.LIVES.append(Heart(self.SCREEN_WIDTH - (self.SCREEN_WIDTH * (0.02 * len(self.LIVES))) -
+                                        (self.HEART_WIDTH * len(self.LIVES)), self.SCREEN_LENGTH * 0.94))
 
         for l in range(1, len(self.LIVES) + 1):
             live = self.LIVES[l - 1]

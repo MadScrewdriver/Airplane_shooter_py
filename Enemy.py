@@ -14,7 +14,6 @@ class Enemy(Levels):
         self.explosion_end = []
         self.enemy_object = None
         self.score = 0
-        self.stop = False
 
     def move_enemy(self):
         for e in range(len(self.ENEMIES)):
@@ -25,23 +24,26 @@ class Enemy(Levels):
                 self.bullets_destroy.clear()
                 self.explosion_end.clear()
                 self.num_of_e = 0
-                self.set_stop(True)
                 return True
 
             enemy_pos.move()
 
         return False
 
-    def tick(self):
+    def tick(self, score):
         self.blast()
-        return self.move_enemy()
+        s = self.move_enemy()
+        if not s:
+            score, s = self.touch(score)
+
+        return score, s
 
     def spawn_pos(self):
 
-        if self.score < 30:
+        if self.score < 0:
             self.level_1()
 
-        elif self.score < 110:
+        elif self.score < 0:
             self.level_2()
 
         elif self.score < 100000:
@@ -69,6 +71,7 @@ class Enemy(Levels):
         self.bullets_destroy.clear()
 
     def touch(self, score):
+        stop = False
 
         for e in range(len(self.ENEMIES)):
             self.enemy_object = self.ENEMIES[e]
@@ -90,16 +93,17 @@ class Enemy(Levels):
 
                     for bul in range(len(self.BULLETS)):
                         b = self.BULLETS[bul]
-                        if b.get_name() == "Red_fireball" and bullets_pos.rectangle_collision(b):
+                        if (b.get_name() in ["Red_fireball", "Bomb"]) \
+                                and bullets_pos.rectangle_collision(b):
                             if bul not in self.bullets_destroy and b_p not in self.bullets_destroy:
                                 self.bullets_destroy.append(bul)
                                 self.EXPLOSIONS.append([b, 16])
                                 self.EXPLOSIONS.append([bullets_pos, 16])
                                 self.bullets_destroy.append(b_p)
 
-                if bullets_pos.get_name() == "Red_fireball":
+                if bullets_pos.get_name() in ["Red_fireball", "Bomb"]:
                     if self.PLAYER.detect_collision(bullets_pos):
-                        self.stop = True
+                        stop = True
                         self.bullets_destroy.clear()
                         self.explosion_end.clear()
                         self.num_of_e = 0
@@ -111,16 +115,16 @@ class Enemy(Levels):
                 if [self.enemy_object, 16] in self.EXPLOSIONS:
                     self.EXPLOSIONS.remove([self.enemy_object, 16])
 
-                self.stop = True
+                stop = True
                 self.bullets_destroy.clear()
                 self.explosion_end.clear()
                 self.num_of_e = 0
 
-            if self.enemy_object.y >= (3/4) * self.SPITFIRE_HEIGHT:
+            if 0 <= self.enemy_object.y <= (4/6) * self.SCREEN_LENGTH:
                 self.enemy_object.shoot()
 
         self.remove_enemies()
-        return score
+        return score, stop
 
     def blast(self):
         self.explosion_end = []
@@ -137,10 +141,7 @@ class Enemy(Levels):
             self.EXPLOSIONS.pop(i - c)
             c += 1
 
-    def set_stop(self, v):
-        self.stop = v
-
-    def draw(self, score):
+    def draw(self, score, stop):
         self.score = score
 
         for exp in self.EXPLOSIONS:
@@ -151,12 +152,11 @@ class Enemy(Levels):
                              (int(exp[0].x),
                               int(exp[0].y)))
 
-        if not self.stop:
+        if not stop:
             self.add_enemies()
             for en in self.ENEMIES:
                 en.draw()
 
-        return self.stop
 
 
 

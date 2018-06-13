@@ -66,6 +66,7 @@ class BasicComponent(Vector2):
         else:
             return False
 
+
     def draw(self, img_num=0):
         self._screen.blit(pygame.transform.scale(self._image[img_num],
                                                  (int(self._width),

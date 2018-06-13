@@ -10,8 +10,4 @@ class RedFireball(BasicComponent, GlobalConstants):
                          self.R_BULL_PIC_PATHS, self.SCREEN, "Red_fireball", 0, self.BULLET_SPEED)
 
     def detect_collision(self, second_object):
-
-        if self.rectangle_collision(second_object):
             return True
-
-        return False

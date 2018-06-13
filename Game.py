@@ -26,10 +26,10 @@ class Game(GlobalConstants):
         self.pause = False
         self.t = 0
         self.lives = 3
-        print(self.SCREEN_WITH, self.SCREEN_LENGTH)
+        print(self.SCREEN_WIDTH, self.SCREEN_LENGTH)
 
         # Initialization
-        self.SPITFIRE = Spitfire(self.SCREEN_WITH / 2 - (self.SCREEN_WITH / 3.90) / 2, self.SCREEN_LENGTH * (4 / 6))
+        self.SPITFIRE = Spitfire(self.SCREEN_WIDTH / 2 - (self.SCREEN_WIDTH / 3.90) / 2, self.SCREEN_LENGTH * (4 / 6))
         self.player = Player(self.SPITFIRE)
         self.bullet = Bullets(self.SPITFIRE)
         self.enemy = Enemy(self.SPITFIRE)
@@ -74,9 +74,8 @@ class Game(GlobalConstants):
                     self.ENEMIES.clear()
                     self.EXPLOSIONS.clear()
                     self.BULLETS.clear()
-                    self.SPITFIRE.x = self.SCREEN_WITH / 2 - (self.SCREEN_WITH / 3.90) / 2
+                    self.SPITFIRE.x = self.SCREEN_WIDTH / 2 - (self.SCREEN_WIDTH / 3.90) / 2
                     self.SPITFIRE.y = self.SCREEN_LENGTH * (4 / 6)
-                    self.enemy.set_stop(False)
 
                     if self.lives == 0:
                         self.lives = 3
@@ -93,8 +92,9 @@ class Game(GlobalConstants):
         self.background.tick()
         self.bullet.tick()
         self.player.tick()
-        self.pause = self.enemy.tick()
-        self.score = self.enemy.touch(self.score)
+        ret = self.enemy.tick(self.score)
+        self.score = ret[0]
+        self.pause = ret[1]
 
         if self.pause:
             self.set_t()
@@ -104,10 +104,7 @@ class Game(GlobalConstants):
         self.background.draw_lives(self.lives)
         self.bullet.draw()
         self.player.draw()
-        self.pause = self.enemy.draw(self.score)
-
-        if self.pause:
-            self.set_t()
+        self.enemy.draw(self.score, self.pause)
 
     def set_t(self):
         self.t = time.time()
@@ -115,7 +112,7 @@ class Game(GlobalConstants):
     def stop(self):
         self.background.draw(self.score)
         self.bullet.draw()
-        self.enemy.draw(self.score)
+        self.enemy.draw(self.score, self.pause)
 
         if (0.25 < time.time() - self.t < 0.5) or (0.75 < time.time() - self.t < 1) or \
                 (1.25 < time.time() - self.t < 1.5) or (1.75 < time.time() - self.t < 2):
@@ -127,7 +124,7 @@ class Game(GlobalConstants):
         t = True
         for bull in self.BULLETS:
 
-            if self.SPITFIRE.detect_collision(bull) and bull.get_name() == "Red_fireball":
+            if self.SPITFIRE.detect_collision(bull) and bull.get_name() in ["Red_fireball", "Bomb"]:
                 if (0.25 < time.time() - self.t < 0.5) or (0.75 < time.time() - self.t < 1) or \
                         (1.25 < time.time() - self.t < 1.5) or (1.75 < time.time() - self.t < 2):
                     self.player.draw(True)
@@ -151,7 +148,3 @@ class Game(GlobalConstants):
 if __name__ == '__main__':
     pygame.init()
     Game()
-
-
-
-

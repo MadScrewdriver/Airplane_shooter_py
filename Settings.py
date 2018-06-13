@@ -21,6 +21,7 @@ class GlobalConstants:
     T_I_PATH = os.path.join("Pictures", "TitleIcon", "title_icon.png")
     BULL_PATH = os.path.join("Pictures", "Bullets", "Fireball")
     R_BULL_PATH = os.path.join("Pictures", "Bullets", "Red_fireball")
+    B_Bull_PATH = os.path.join("Pictures", "Bullets", "Bomb")
     BACK_PATH = os.path.join("Pictures", "Background")
     B_E_PATH = os.path.join("Pictures", "Enemy", "BasicEnemy")
     R_PATH = os.path.join("Pictures", "Enemy", "Rocket")
@@ -29,6 +30,7 @@ class GlobalConstants:
     PIX_FONT_PATH = os.path.join("Fonts", "Pixel_font.ttf")
     HEART_PATH = os.path.join("Pictures", "Heart")
 
+    B_BULL_PIC_PATHS = [os.path.join(B_Bull_PATH, "bomb.png")]
     HEART_PIC_PATH = [os.path.join(HEART_PATH, "heart.png")]
     R_BULL_PIC_PATHS = [os.path.join(R_BULL_PATH, "red_fireball.png")]
     BOM_PIC_PATH = [os.path.join(BOM_PATH, "bomber.png")]
@@ -41,35 +43,38 @@ class GlobalConstants:
     # --------------------OTHER VARIABLES-------------------------------------------
     MARGIN = int(get_monitors()[0].height * 0.025)
     SCREEN_LENGTH = int(get_monitors()[-1].height * 0.75)
-    SCREEN_WITH = int(get_monitors()[-1].height * 0.5)
-    MIN_DISTANCE = int(SCREEN_WITH / 54)
-    SPITFIRE_WITH = int(SCREEN_WITH / 3.90)
-    SPITFIRE_HEIGHT = int(SCREEN_WITH / 5.27)
-    MESSERSCHMITT_WITH = int(SCREEN_WITH / 3.90)
-    MESSERSCHMITT_HEIGHT = int(SCREEN_WITH / 5.27)
-    BOMBER_WITH = int(SCREEN_WITH / 3.65)
-    BOMBER_HEIGHT = int(SCREEN_WITH / 4.61)
-    HEART_WITH = int(SCREEN_WITH / 12.27)
-    HEART_HEIGHT = int(SCREEN_WITH / 13.5)
-    SCREEN = pygame.display.set_mode((SCREEN_WITH, SCREEN_LENGTH))
+    SCREEN_WIDTH = int(get_monitors()[-1].height * 0.5)
+    MIN_DISTANCE = int(SCREEN_WIDTH / 54)
+    SPITFIRE_WIDTH = int(SCREEN_WIDTH / 3.90)
+    SPITFIRE_HEIGHT = int(SCREEN_WIDTH / 5.27)
+    MESSERSCHMITT_WIDTH = int(SCREEN_WIDTH / 3.90)
+    MESSERSCHMITT_HEIGHT = int(SCREEN_WIDTH / 5.27)
+    BOMBER_WIDTH = int(SCREEN_WIDTH / 3.65)
+    BOMBER_HEIGHT = int(SCREEN_WIDTH / 4.61)
+    HEART_WIDTH = int(SCREEN_WIDTH / 12.27)
+    HEART_HEIGHT = int(SCREEN_WIDTH / 13.5)
+    SCREEN = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_LENGTH))
     ENEMIES = []
     BULLETS = []
     EXPLOSIONS = []
     LIVES = []
-    BULLET_SIZE = int(SCREEN_WITH / 54)
-    MESSERSCHMITT_SPEED = SCREEN_WITH / 150
-    BULLET_SPEED = SCREEN_WITH / 80
-    BOMBER_SPEED = SCREEN_WITH / 150
+    BULLET_SIZE = int(SCREEN_WIDTH / 54)
+    BOMB_WIDTH = 10
+    BOMB_HEIGHT = 27
+    BOMB_SPEED = SCREEN_WIDTH / 90
+    MESSERSCHMITT_SPEED = SCREEN_WIDTH / 150
+    BULLET_SPEED = SCREEN_WIDTH / 80
+    BOMBER_SPEED = SCREEN_WIDTH / 150
 
 
 class PlayerConstants(GlobalConstants):
     def __init__(self):
-        self.SPEED = self.SCREEN_WITH / 120
+        self.SPEED = self.SCREEN_WIDTH / 120
 
 
 class BackgroundConstants(GlobalConstants):
     def __init__(self):
-        self.BG_SPEED = self.SCREEN_WITH / 270
+        self.BG_SPEED = self.SCREEN_WIDTH / 270
 
 
 class LevelsConstants(GlobalConstants):
