@@ -29,7 +29,9 @@ class GlobalConstants:
     EXPLO_PATH = os.path.join("Pictures", "Explosion")
     PIX_FONT_PATH = os.path.join("Fonts", "Pixel_font.ttf")
     HEART_PATH = os.path.join("Pictures", "Heart")
+    HOUSE_PATH = os.path.join("Pictures", "House")
 
+    HOUSE_PIC_PATH = [os.path.join(HOUSE_PATH, "house.png")]
     B_BULL_PIC_PATHS = [os.path.join(B_Bull_PATH, "bomb.png")]
     HEART_PIC_PATH = [os.path.join(HEART_PATH, "heart.png")]
     R_BULL_PIC_PATHS = [os.path.join(R_BULL_PATH, "red_fireball.png")]
@@ -44,6 +46,8 @@ class GlobalConstants:
     MARGIN = int(get_monitors()[0].height * 0.025)
     SCREEN_LENGTH = int(get_monitors()[-1].height * 0.75)
     SCREEN_WIDTH = int(get_monitors()[-1].height * 0.5)
+    FONT_SIZE = int(SCREEN_WIDTH / 12)
+    GAP_BETWEEN_H_H = SCREEN_WIDTH / 30000
     MIN_DISTANCE = int(SCREEN_WIDTH / 54)
     SPITFIRE_WIDTH = int(SCREEN_WIDTH / 3.90)
     SPITFIRE_HEIGHT = int(SCREEN_WIDTH / 5.27)
@@ -53,14 +57,17 @@ class GlobalConstants:
     BOMBER_HEIGHT = int(SCREEN_WIDTH / 4.61)
     HEART_WIDTH = int(SCREEN_WIDTH / 12.27)
     HEART_HEIGHT = int(SCREEN_WIDTH / 13.5)
+    HOUSE_WIDTH = int(SCREEN_WIDTH / 13.5)
+    HOUSE_HEIGHT = int(SCREEN_WIDTH / 13.5)
     SCREEN = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_LENGTH))
     ENEMIES = []
     BULLETS = []
     EXPLOSIONS = []
     LIVES = []
+    HOUSES = []
     BULLET_SIZE = int(SCREEN_WIDTH / 54)
-    BOMB_WIDTH = 10
-    BOMB_HEIGHT = 27
+    BOMB_WIDTH = int(SCREEN_WIDTH / 54)
+    BOMB_HEIGHT = int(SCREEN_WIDTH / 20)
     BOMB_SPEED = SCREEN_WIDTH / 90
     MESSERSCHMITT_SPEED = SCREEN_WIDTH / 150
     BULLET_SPEED = SCREEN_WIDTH / 80
