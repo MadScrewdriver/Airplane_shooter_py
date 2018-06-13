@@ -26,7 +26,7 @@ class Enemy(Levels):
                     return [score, True, True, False]
 
                 if enemy_pos.get_name() == "Messerschmitt":
-                    return [score, True, False, True]
+                    return [score, True, True, False]
 
             enemy_pos.move()
 
