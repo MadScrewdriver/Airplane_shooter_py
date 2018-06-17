@@ -13,20 +13,20 @@ class Spitfire(BasicComponent, PlayerConstants):
 
     def detect_collision(self, second_object):
 
-        body = Mask(self.x + ((12 / 27) * self.SPITFIRE_WIDTH),
+        body = Mask(self.x + ((17 / 40) * self.SPITFIRE_WIDTH),
                     self.y,
-                    self.SPITFIRE_WIDTH * (3 / 27),
+                    self.SPITFIRE_WIDTH * (6 / 40),
                     self.SPITFIRE_HEIGHT, "B")
 
-        wings = Mask(self.x + ((1 / 27) * self.SPITFIRE_WIDTH),
-                     self.y + ((8 / 21) * self.SPITFIRE_HEIGHT),
-                     self.SPITFIRE_WIDTH - ((2 / 27) * self.SPITFIRE_WIDTH),
-                     self.SPITFIRE_HEIGHT * (4 / 21), "W")
+        wings = Mask(self.x + ((2 / 40) * self.SPITFIRE_WIDTH),
+                     self.y + ((10 / 35) * self.SPITFIRE_HEIGHT),
+                     self.SPITFIRE_WIDTH - ((4 / 40) * self.SPITFIRE_WIDTH),
+                     self.SPITFIRE_HEIGHT * (9 / 35), "W")
 
-        stabilizer = Mask(self.x + (10 / 27) * self.SPITFIRE_WIDTH,
-                          self.y + ((18 / 21) * self.SPITFIRE_HEIGHT),
-                          self.SPITFIRE_WIDTH * (7 / 27),
-                          self.SPITFIRE_HEIGHT * (2 / 21), "S")
+        stabilizer = Mask(self.x + (14 / 40) * self.SPITFIRE_WIDTH,
+                          self.y + ((32 / 35) * self.SPITFIRE_HEIGHT),
+                          self.SPITFIRE_WIDTH * (12 / 40),
+                          self.SPITFIRE_HEIGHT * (3 / 35), "S")
 
         if (body.rectangle_collision(second_object) or wings.rectangle_collision(second_object) or
                 stabilizer.rectangle_collision(second_object)) and \

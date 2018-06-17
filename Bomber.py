@@ -28,20 +28,20 @@ class Bomber(BasicComponent, GlobalConstants):
             self.diff = uniform(3, 5)
 
     def detect_collision(self, second_object):
-        body = Mask(self.x + ((13 / 29) * self.BOMBER_WIDTH),
+        body = Mask(self.x + ((26 / 61) * self.BOMBER_WIDTH),
                     self.y,
-                    self.BOMBER_WIDTH * (3 / 29),
+                    self.BOMBER_WIDTH * (9 / 61),
                     self.BOMBER_HEIGHT)
 
         wings = Mask(self.x,
-                     self.y + ((11 / 23) * self.BOMBER_HEIGHT),
+                     self.y + ((24 / 48) * self.BOMBER_HEIGHT),
                      self.BOMBER_WIDTH,
-                     self.BOMBER_HEIGHT * (4 / 23))
+                     self.BOMBER_HEIGHT * (11 / 61))
 
-        stabilizer = Mask(self.x + (9 / 29) * self.BOMBER_WIDTH,
+        stabilizer = Mask(self.x + (21 / 61) * self.BOMBER_WIDTH,
                           self.y,
-                          self.BOMBER_WIDTH * (11 / 29),
-                          self.BOMBER_HEIGHT * (3 / 23))
+                          self.BOMBER_WIDTH * (19 / 61),
+                          self.BOMBER_HEIGHT * (6 / 48))
 
         if body.rectangle_collision(second_object) or wings.rectangle_collision(second_object) or \
                 stabilizer.rectangle_collision(second_object):

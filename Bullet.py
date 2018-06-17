@@ -10,7 +10,7 @@ class Bullets(GlobalConstants):
         super().__init__()
 
     def shoot(self):
-        self.BULLETS.append(Fireball(self.PLAYER.x + (self.PLAYER.get_width() / 2 - self.BULLET_SIZE / 2),
+        self.BULLETS.append(Fireball(self.PLAYER.x + (self.PLAYER.get_width() / 2 - self.BULLET_WIDTH / 2),
                                      self.PLAYER.y))
 
     def tick(self):

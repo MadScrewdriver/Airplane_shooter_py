@@ -20,26 +20,26 @@ class Messerschmitt(BasicComponent, GlobalConstants):
     def shoot(self):
 
         if time.time() - self.shoot_t >= self.diff:
-            self.BULLETS.append(RedFireball(int((self.x + self.get_width() / 2) - self.BULLET_SIZE / 2),
+            self.BULLETS.append(RedFireball(int((self.x + self.get_width() / 2) - self.BULLET_WIDTH / 2),
                                             int(self.y + self.MESSERSCHMITT_HEIGHT)))
             self.shoot_t = time.time()
             self.diff = uniform(2, 4)
 
     def detect_collision(self, second_object):
-        body = Mask(self.x + ((12 / 27) * self.MESSERSCHMITT_WIDTH),
+        body = Mask(self.x + ((16 / 38) * self.MESSERSCHMITT_WIDTH),
                     self.y,
-                    self.MESSERSCHMITT_WIDTH * (3 / 27),
+                    self.MESSERSCHMITT_WIDTH * (6 / 38),
                     self.MESSERSCHMITT_HEIGHT)
 
         wings = Mask(self.x,
-                     self.y + ((10 / 21) * self.MESSERSCHMITT_HEIGHT),
+                     self.y + ((19 / 35) * self.MESSERSCHMITT_HEIGHT),
                      self.MESSERSCHMITT_WIDTH,
-                     self.MESSERSCHMITT_HEIGHT * (4 / 21))
+                     self.MESSERSCHMITT_HEIGHT * (6 / 35))
 
-        stabilizer = Mask(self.x + (10 / 27) * self.MESSERSCHMITT_WIDTH,
+        stabilizer = Mask(self.x + (13 / 38) * self.MESSERSCHMITT_WIDTH,
                           self.y,
-                          self.MESSERSCHMITT_WIDTH * (7 / 27),
-                          self.MESSERSCHMITT_HEIGHT * (2 / 21))
+                          self.MESSERSCHMITT_WIDTH * (12 / 38),
+                          self.MESSERSCHMITT_HEIGHT * (3 / 35))
 
         if body.rectangle_collision(second_object) or wings.rectangle_collision(second_object) or \
                 stabilizer.rectangle_collision(second_object):

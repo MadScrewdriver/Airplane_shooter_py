@@ -45,16 +45,16 @@ class GlobalConstants:
     # --------------------OTHER VARIABLES-------------------------------------------
     SCREEN_WIDTH = int(get_monitors()[-1].height / 1.8)
     SCREEN_LENGTH = int(get_monitors()[-1].height / 1.2)
-    MARGIN = int(SCREEN_WIDTH / 20)
-    FONT_SIZE = int(SCREEN_WIDTH / 12)
+    MARGIN = int(SCREEN_WIDTH / 20.69)
+    FONT_SIZE = int(SCREEN_WIDTH / 11)
     GAP_BETWEEN_H_H = SCREEN_WIDTH / 30000
-    MIN_DISTANCE = int(SCREEN_WIDTH / 54)
-    SPITFIRE_WIDTH = int(SCREEN_WIDTH / 3.90)
-    SPITFIRE_HEIGHT = int(SCREEN_WIDTH / 5.27)
-    MESSERSCHMITT_WIDTH = int(SCREEN_WIDTH / 3.90)
-    MESSERSCHMITT_HEIGHT = int(SCREEN_WIDTH / 5.27)
-    BOMBER_WIDTH = int(SCREEN_WIDTH / 3.65)
-    BOMBER_HEIGHT = int(SCREEN_WIDTH / 4.61)
+    MIN_DISTANCE = int(SCREEN_WIDTH / 52)
+    SPITFIRE_WIDTH = int(SCREEN_WIDTH / 5)
+    SPITFIRE_HEIGHT = int(SCREEN_WIDTH / 5.71)
+    MESSERSCHMITT_WIDTH = int(SCREEN_WIDTH / 5.26)
+    MESSERSCHMITT_HEIGHT = int(SCREEN_WIDTH / 5.71)
+    BOMBER_WIDTH = int(SCREEN_WIDTH / 3.27)
+    BOMBER_HEIGHT = int(SCREEN_WIDTH / 4.16)
     HEART_WIDTH = int(SCREEN_WIDTH / 12.27)
     HEART_HEIGHT = int(SCREEN_WIDTH / 13.5)
     HOUSE_WIDTH = int(SCREEN_WIDTH / 13.5)
@@ -67,7 +67,8 @@ class GlobalConstants:
     EXPLOSIONS = []
     LIVES = []
     HOUSES = []
-    BULLET_SIZE = int(SCREEN_WIDTH / 54)
+    BULLET_WIDTH = int(SCREEN_WIDTH / 180)
+    BULLET_HEIGHT = int(SCREEN_WIDTH / 60)
     BOMB_WIDTH = int(SCREEN_WIDTH / 54)
     BOMB_HEIGHT = int(SCREEN_WIDTH / 20)
     BOMB_SPEED = SCREEN_WIDTH / 90
