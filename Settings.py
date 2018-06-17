@@ -43,9 +43,9 @@ class GlobalConstants:
     PLAYER_PIC_PATHS = (lambda x=B_A_PATH: [os.path.join(x, p + ".png") for p in ["straight", "left", "right"]])()
 
     # --------------------OTHER VARIABLES-------------------------------------------
-    MARGIN = int(get_monitors()[0].height * 0.025)
-    SCREEN_LENGTH = int(get_monitors()[-1].height * 0.75)
-    SCREEN_WIDTH = int(get_monitors()[-1].height * 0.5)
+    SCREEN_WIDTH = int(get_monitors()[-1].height / 1.8)
+    SCREEN_LENGTH = int(get_monitors()[-1].height / 1.2)
+    MARGIN = int(SCREEN_WIDTH / 20)
     FONT_SIZE = int(SCREEN_WIDTH / 12)
     GAP_BETWEEN_H_H = SCREEN_WIDTH / 30000
     MIN_DISTANCE = int(SCREEN_WIDTH / 54)
