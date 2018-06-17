@@ -16,17 +16,17 @@ class Spitfire(BasicComponent, PlayerConstants):
         body = Mask(self.x + ((12 / 27) * self.SPITFIRE_WIDTH),
                     self.y,
                     self.SPITFIRE_WIDTH * (3 / 27),
-                    self.SPITFIRE_HEIGHT)
+                    self.SPITFIRE_HEIGHT, "B")
 
         wings = Mask(self.x + ((1 / 27) * self.SPITFIRE_WIDTH),
                      self.y + ((8 / 21) * self.SPITFIRE_HEIGHT),
                      self.SPITFIRE_WIDTH - ((2 / 27) * self.SPITFIRE_WIDTH),
-                     self.SPITFIRE_HEIGHT * (4 / 21))
+                     self.SPITFIRE_HEIGHT * (4 / 21), "W")
 
         stabilizer = Mask(self.x + (10 / 27) * self.SPITFIRE_WIDTH,
                           self.y + ((18 / 21) * self.SPITFIRE_HEIGHT),
                           self.SPITFIRE_WIDTH * (7 / 27),
-                          self.SPITFIRE_HEIGHT * (2 / 21))
+                          self.SPITFIRE_HEIGHT * (2 / 21), "S")
 
         if (body.rectangle_collision(second_object) or wings.rectangle_collision(second_object) or
                 stabilizer.rectangle_collision(second_object)) and \

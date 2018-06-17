@@ -18,15 +18,16 @@ class Enemy(Levels):
         for e in range(len(self.ENEMIES)):
             enemy_pos = self.ENEMIES[e]
 
-            if enemy_pos.y >= self.SCREEN_LENGTH - enemy_pos.get_height() - self.MARGIN * 3:
+            if (enemy_pos.y >= self.SCREEN_LENGTH - enemy_pos.get_height() - self.MARGIN * 3) and enemy_pos.get_name() \
+                    in ["Bomber", "Messerschmitt"]:
                 self.enemy_destroy.clear()
                 self.bullets_destroy.clear()
                 self.explosion_end.clear()
-                if enemy_pos.get_name() == "Bomber":
-                    return [score, True, True, False]
+                return [score, True, True, False]
 
-                if enemy_pos.get_name() == "Messerschmitt":
-                    return [score, True, True, False]
+            if (enemy_pos.y >= self.SCREEN_LENGTH - enemy_pos.get_height() - self.MARGIN * 3) and \
+                    enemy_pos.get_name() == "V_2":
+                self.enemy_destroy.append(e)
 
             enemy_pos.move()
 
@@ -42,14 +43,17 @@ class Enemy(Levels):
 
     def spawn_pos(self):
 
-        if self.score < 0:
+        if self.score < 30:
             self.level_1()
 
-        elif self.score < 0:
+        elif self.score < 130:
             self.level_2()
 
-        elif self.score < 100000:
+        elif self.score < 230:
             self.level_3()
+
+        elif self.score < 121323210:
+            self.level_4()
 
     def add_enemies(self):
         
@@ -122,7 +126,7 @@ class Enemy(Levels):
                 self.bullets_destroy.clear()
                 self.explosion_end.clear()
 
-            if 0 <= self.enemy_object.y <= (4/6) * self.SCREEN_LENGTH:
+            if (0 <= self.enemy_object.y <= (4/6) * self.SCREEN_LENGTH) and self.enemy_object.get_name() != "V_2":
                 self.enemy_object.shoot()
 
         self.remove_enemies()

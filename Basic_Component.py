@@ -29,27 +29,17 @@ class BasicComponent(Vector2):
 
     def rectangle_collision(self, second_object):
 
-        smaller = (self._width * self._height) < (second_object.get_width() * second_object.get_height())
+        x1 = self.x
+        y1 = self.y
+        w1 = self._width
+        h1 = self._height
+        x2 = second_object.x
+        y2 = second_object.y
+        w2 = second_object.get_width()
+        h2 = second_object.get_height()
 
-        if smaller:
-            x1 = self.x
-            y1 = self.y
-            w1 = self._height
-            h1 = self._width
-            x2 = second_object.x
-            y2 = second_object.y
-            w2 = second_object.get_width()
-            h2 = second_object.get_height()
-
-        else:
-            x1 = second_object.x
-            y1 = second_object.y
-            w1 = second_object.get_width()
-            h1 = second_object.get_height()
-            x2 = self.x
-            y2 = self.y
-            h2 = self._height
-            w2 = self._width
+        # print(int(x1), int(y1), int(w1), int(h1), self.get_name(),
+        # int(x2), int(y2), int(w2), int(h2), second_object.get_name())
 
         if x2 + w2 >= x1 >= x2 and y2 + h2 >= y1 >= y2:
             return True
@@ -63,9 +53,20 @@ class BasicComponent(Vector2):
         elif x2 + w2 >= x1 + w1 >= x2 and y2 + h2 >= y1 + h1 >= y2:
             return True
 
+        elif x1 + w1 >= x2 >= x1 and y1 + h1 >= y2 >= y1:
+            return True
+
+        elif x1 + w1 >= x2 + w2 >= x1 and y1 + h1 >= y2 >= y1:
+            return True
+
+        elif x1 + w1 >= x2 >= x1 and y1 + h1 >= y2 + h2 >= y1:
+            return True
+
+        elif x1 + w1 >= x2 + w2 >= x1 and y1 + h1 >= y2 + h2 >= y1:
+            return True
+
         else:
             return False
-
 
     def draw(self, img_num=0):
         self._screen.blit(pygame.transform.scale(self._image[img_num],

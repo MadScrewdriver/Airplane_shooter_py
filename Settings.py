@@ -59,6 +59,8 @@ class GlobalConstants:
     HEART_HEIGHT = int(SCREEN_WIDTH / 13.5)
     HOUSE_WIDTH = int(SCREEN_WIDTH / 13.5)
     HOUSE_HEIGHT = int(SCREEN_WIDTH / 13.5)
+    ROCKET_WIDTH = int(SCREEN_WIDTH / 13.85)
+    ROCKET_HEIGHT = int(SCREEN_WIDTH / 6)
     SCREEN = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_LENGTH))
     ENEMIES = []
     BULLETS = []
@@ -72,6 +74,7 @@ class GlobalConstants:
     MESSERSCHMITT_SPEED = SCREEN_WIDTH / 150
     BULLET_SPEED = SCREEN_WIDTH / 80
     BOMBER_SPEED = SCREEN_WIDTH / 150
+    ROCKET_SPEED = SCREEN_WIDTH / 70
 
 
 class PlayerConstants(GlobalConstants):

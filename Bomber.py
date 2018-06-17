@@ -11,7 +11,7 @@ class Bomber(BasicComponent, GlobalConstants):
         self.x = x
         self.y = y
         self.shoot_t = 0
-        self.diff = uniform(2, 4)
+        self.diff = uniform(3, 5)
 
         super().__init__(self.x, self.y, self.BOMBER_WIDTH, self.BOMBER_HEIGHT,
                          self.BOM_PIC_PATH, self.SCREEN, "Bomber", 0, self.BOMBER_SPEED)
@@ -25,7 +25,7 @@ class Bomber(BasicComponent, GlobalConstants):
             self.BULLETS.append(Bomb(int(self.x + self.get_width() * (20 / 27)),
                                      int(self.y + self.BOMBER_HEIGHT / 2)))
             self.shoot_t = time.time()
-            self.diff = uniform(2, 4)
+            self.diff = uniform(3, 5)
 
     def detect_collision(self, second_object):
         body = Mask(self.x + ((13 / 29) * self.BOMBER_WIDTH),
