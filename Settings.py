@@ -31,7 +31,10 @@ class GlobalConstants:
     PIX_FONT_PATH = os.path.join("Fonts", "Pixel_font.ttf")
     HEART_PATH = os.path.join("Pictures", "Heart")
     HOUSE_PATH = os.path.join("Pictures", "House")
+    UP_CA_PATH = os.path.join("Pictures", "Upgrades", "Canon")
 
+    UP_CA_PIC_PATHS = (lambda x=UP_CA_PATH: [os.path.join(x, "cannon" + str(i) + ".png") for i in range(1, 4)])()
+    print(UP_CA_PIC_PATHS)
     HOUSE_PIC_PATH = [os.path.join(HOUSE_PATH, "house.png")]
     B_BULL_PIC_PATHS = [os.path.join(B_Bull_PATH, "bomb.png")]
     HEART_PIC_PATH = [os.path.join(HEART_PATH, "heart.png")]
@@ -40,7 +43,7 @@ class GlobalConstants:
     Fire_PIC_PATHS = [os.path.join(BULL_PATH, "bullet.png")]
     ROC_PIC_PATH = [os.path.join(R_PATH, "rocket.png")]
     BACK_PIC_PATHS = [os.path.join(BACK_PATH, "background.png")]
-    CLOUDS_PIC_PATHS = [os.path.join(CLOUDS_PATH, "clouds.png")]
+    CLOUDS_PIC_PATHS = [os.path.join(CLOUDS_PATH, "cloud_1.png")]
     ENEMY_PIC_PATHS = [os.path.join(B_E_PATH, "straight.png")]
     PLAYER_PIC_PATHS = (lambda x=B_A_PATH: [os.path.join(x, p + ".png") for p in ["straight", "left", "right"]])()
 
@@ -69,6 +72,8 @@ class GlobalConstants:
     EXPLOSIONS = []
     LIVES = []
     HOUSES = []
+    CLOUDS = []
+    UPGRADES = []
     BULLET_WIDTH = int(SCREEN_WIDTH / 180)
     BULLET_HEIGHT = int(SCREEN_WIDTH / 60)
     BOMB_WIDTH = int(SCREEN_WIDTH / 54)

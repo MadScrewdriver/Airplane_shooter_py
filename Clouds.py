@@ -1,3 +1,5 @@
+import pygame
+from random import uniform
 from Settings import GlobalConstants
 from Basic_Component import BasicComponent
 
@@ -5,29 +7,26 @@ from Basic_Component import BasicComponent
 class Clouds(GlobalConstants):
 
     def __init__(self):
-        super().__init__()
-        self.clouds_1 = BasicComponent(0, -self.SCREEN_LENGTH * 1, self.SCREEN_WIDTH, self.SCREEN_LENGTH * 2,
-                                       self.CLOUDS_PIC_PATHS, self.SCREEN, "Clouds", 0, self.CLOUDS_SPEED)
-
-        self.clouds_2 = BasicComponent(0, 0, self.SCREEN_WIDTH, self.SCREEN_LENGTH * 2,
-                                       self.CLOUDS_PIC_PATHS, self.SCREEN, "Clouds", 0, self.CLOUDS_SPEED)
-
-        self.two = False
+        self.CLOUDS.append(
+            BasicComponent(int(uniform(-150, self.SCREEN_WIDTH - 150)), -173, 306, 173,
+                            self.CLOUDS_PIC_PATHS, self.SCREEN, "Cloud", 0, self.CLOUDS_SPEED))
 
     def tick(self):
-        self.clouds_1.move()
+        des = 0
+        for p in range(len(self.CLOUDS)):
+            c = self.CLOUDS[p]
+            c.move()
+            if p == len(self.CLOUDS) - 1 and c.y > c.get_height():
+                self.CLOUDS.append(
+                    BasicComponent(int(uniform(-150, self.SCREEN_WIDTH - 150)), -173, 306, 173,
+                                   self.CLOUDS_PIC_PATHS, self.SCREEN, "Cloud", 0, self.CLOUDS_SPEED))
 
-        if self.SCREEN_LENGTH >= self.clouds_1.y >= 0:
-            self.two = True
-            self.clouds_2.y = (self.clouds_1.y - self.SCREEN_LENGTH * 2)
+            if c.y >= self.SCREEN_LENGTH:
+                des += 1
 
-        if self.clouds_1.y > self.SCREEN_LENGTH and self.two:
-            self.two = False
-            self.clouds_1.y = self.clouds_2.y
+        for _ in range(des):
+            self.CLOUDS.pop(0)
 
     def draw(self):
-
-        if self.two:
-            self.clouds_2.draw(0)
-
-        self.clouds_1.draw(0)
+        for c in self.CLOUDS:
+            c.draw()

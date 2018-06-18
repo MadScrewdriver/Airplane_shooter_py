@@ -8,6 +8,7 @@ from Background import Background
 from Settings import GlobalConstants
 from Spitfire import Spitfire
 from Clouds import Clouds
+from Upgrades import Upgrade
 
 
 # Main class
@@ -34,11 +35,12 @@ class Game(GlobalConstants):
 
         # Initialization
         self.SPITFIRE = Spitfire(self.SCREEN_WIDTH / 2 - (self.SCREEN_WIDTH / 3.90) / 2, self.SCREEN_LENGTH * (4 / 6))
-        self.player = Player(self.SPITFIRE)
-        self.bullet = Bullets(self.SPITFIRE)
-        self.enemy = Enemy(self.SPITFIRE)
-        self.background = Background()
         self.clouds = Clouds()
+        self.player = Player(self.SPITFIRE)
+        self.upgrade = Upgrade(self.SPITFIRE)
+        self.bullet = Bullets(self.SPITFIRE)
+        self.enemy = Enemy(self.SPITFIRE, self.upgrade)
+        self.background = Background()
         self.time_start = time.time()
         self.shout_time = time.time()
 
@@ -105,6 +107,7 @@ class Game(GlobalConstants):
     def tick(self):
         self.background.tick()
         self.clouds.tick()
+        self.upgrade.tick()
         self.bullet.tick()
         self.player.tick()
         ret = self.enemy.tick(self.score)
@@ -122,6 +125,7 @@ class Game(GlobalConstants):
         self.background.draw_score(self.score)
         self.background.draw_lives(self.lives)
         self.background.draw_houses(self.houses)
+        self.upgrade.draw()
         self.bullet.draw()
         self.player.draw()
         self.enemy.draw(self.score, self.pause)

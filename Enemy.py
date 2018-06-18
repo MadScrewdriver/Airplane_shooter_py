@@ -5,7 +5,7 @@ from Levels import Levels
 
 class Enemy(Levels):
 
-    def __init__(self, player):
+    def __init__(self, player, upgrade):
         super().__init__()
         self.PLAYER = player
         self.enemy_destroy = []
@@ -13,6 +13,7 @@ class Enemy(Levels):
         self.explosion_end = []
         self.enemy_object = None
         self.score = 0
+        self.upgrades = upgrade
 
     def move_enemy(self, score):
         for e in range(len(self.ENEMIES)):
@@ -88,7 +89,7 @@ class Enemy(Levels):
                 bullets_pos = self.BULLETS[b_p]
                 if bullets_pos.get_name() == "Fireball":
                     if bullets_pos.detect_collision(self.enemy_object):
-
+                        self.upgrades.add_upgrade(self.enemy_object.x, self.enemy_object.y)
                         if e not in self.enemy_destroy:
                             self.EXPLOSIONS.append([self.enemy_object, 16])
                             self.enemy_destroy.append(e)
