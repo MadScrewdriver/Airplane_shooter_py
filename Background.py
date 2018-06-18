@@ -31,12 +31,14 @@ class Background(BackgroundConstants):
             self.two = False
             self.background_1.y = self.background_2.y
 
-    def draw(self, score):
+    def draw(self):
 
         if self.two:
             self.background_2.draw(0)
 
         self.background_1.draw(0)
+
+    def draw_score(self, score):
 
         score_test = self.score_font.render(str(score), 1, (255, 255, 255))
         self.SCREEN.blit(score_test, (self.MARGIN, self.MARGIN))

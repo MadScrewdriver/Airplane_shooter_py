@@ -7,6 +7,7 @@ from Enemy import Enemy
 from Background import Background
 from Settings import GlobalConstants
 from Spitfire import Spitfire
+from Clouds import Clouds
 
 
 # Main class
@@ -37,6 +38,7 @@ class Game(GlobalConstants):
         self.bullet = Bullets(self.SPITFIRE)
         self.enemy = Enemy(self.SPITFIRE)
         self.background = Background()
+        self.clouds = Clouds()
         self.time_start = time.time()
         self.shout_time = time.time()
 
@@ -102,6 +104,7 @@ class Game(GlobalConstants):
 
     def tick(self):
         self.background.tick()
+        self.clouds.tick()
         self.bullet.tick()
         self.player.tick()
         ret = self.enemy.tick(self.score)
@@ -114,7 +117,9 @@ class Game(GlobalConstants):
             self.set_t()
 
     def draw(self):
-        self.background.draw(self.score)
+        self.background.draw()
+        self.clouds.draw()
+        self.background.draw_score(self.score)
         self.background.draw_lives(self.lives)
         self.background.draw_houses(self.houses)
         self.bullet.draw()
@@ -125,7 +130,9 @@ class Game(GlobalConstants):
         self.t = time.time()
 
     def stop(self):
-        self.background.draw(self.score)
+        self.background.draw()
+        self.clouds.draw()
+        self.background.draw_score(self.score)
         self.bullet.draw()
         self.enemy.draw(self.score, self.pause)
 

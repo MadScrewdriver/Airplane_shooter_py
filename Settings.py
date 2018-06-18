@@ -23,6 +23,7 @@ class GlobalConstants:
     R_BULL_PATH = os.path.join("Pictures", "Bullets", "Red_fireball")
     B_Bull_PATH = os.path.join("Pictures", "Bullets", "Bomb")
     BACK_PATH = os.path.join("Pictures", "Background")
+    CLOUDS_PATH = os.path.join("Pictures", "Clouds")
     B_E_PATH = os.path.join("Pictures", "Enemy", "BasicEnemy")
     R_PATH = os.path.join("Pictures", "Enemy", "Rocket")
     BOM_PATH = os.path.join("Pictures", "Enemy", "Bomber")
@@ -39,6 +40,7 @@ class GlobalConstants:
     Fire_PIC_PATHS = [os.path.join(BULL_PATH, "bullet.png")]
     ROC_PIC_PATH = [os.path.join(R_PATH, "rocket.png")]
     BACK_PIC_PATHS = [os.path.join(BACK_PATH, "background.png")]
+    CLOUDS_PIC_PATHS = [os.path.join(CLOUDS_PATH, "clouds.png")]
     ENEMY_PIC_PATHS = [os.path.join(B_E_PATH, "straight.png")]
     PLAYER_PIC_PATHS = (lambda x=B_A_PATH: [os.path.join(x, p + ".png") for p in ["straight", "left", "right"]])()
 
@@ -76,6 +78,7 @@ class GlobalConstants:
     BULLET_SPEED = SCREEN_WIDTH / 80
     BOMBER_SPEED = SCREEN_WIDTH / 150
     ROCKET_SPEED = SCREEN_WIDTH / 70
+    CLOUDS_SPEED = SCREEN_WIDTH / 200
 
 
 class PlayerConstants(GlobalConstants):
